@@ -30,6 +30,7 @@ const projectDetails: Record<string, {
       'Creating scalable processes for a growing team',
     ],
     outcome: 'Successfully delivered 15+ projects for clients across various industries, establishing SnapWeaz as a trusted partner for digital product development.',
+    github: 'https://github.com/anshhedau1',
   },
   'road-vision': {
     fullDescription: [
@@ -50,6 +51,7 @@ const projectDetails: Record<string, {
       'Achieving high accuracy rates with different plate formats',
     ],
     outcome: 'Achieved 85%+ accuracy in license plate recognition under various conditions, demonstrating the viability of edge computing for ANPR applications.',
+    github: 'https://github.com/anshhedau1',
   },
   'virtual-lost-found': {
     fullDescription: [
@@ -71,6 +73,7 @@ const projectDetails: Record<string, {
       'Ensuring user privacy while enabling communication',
     ],
     outcome: 'Created a fully functional platform that streamlines the lost and found process, making it easier for communities to help each other recover lost belongings.',
+    github: 'https://github.com/anshhedau1',
   },
   'snap2sheet': {
     fullDescription: [
@@ -91,6 +94,28 @@ const projectDetails: Record<string, {
       'Balancing accuracy with processing speed',
     ],
     outcome: 'Developed a reliable OCR solution that consistently achieves 90%+ accuracy on printed text, making document digitization quick and efficient.',
+    github: 'https://github.com/anshhedau1',
+  },
+  'employee-portal': {
+    fullDescription: [
+      'SnapWeaz Employee Portal is an internal management system designed to streamline employee data management and administrative tasks for the SnapWeaz team.',
+      'The portal provides a centralized database for employee information, making it easy to track team members, their roles, and project assignments.',
+      'Built with modern web technologies, it offers a clean, intuitive interface for HR and management tasks.',
+    ],
+    features: [
+      'Employee database with comprehensive profiles',
+      'Role-based access control and authentication',
+      'Project assignment and tracking',
+      'Administrative dashboard with analytics',
+      'Search and filter functionality',
+    ],
+    challenges: [
+      'Designing a secure authentication system',
+      'Creating an intuitive admin interface',
+      'Implementing efficient data management',
+    ],
+    outcome: 'Delivered a functional employee management system that streamlines internal operations and improves team coordination at SnapWeaz.',
+    github: 'https://github.com/anshhedau1',
   },
 };
 

@@ -8,7 +8,7 @@ export const projects = [
     description: 'Design and Tech Studio building digital products and experiences. Led design, development, and strategy for multiple client projects.',
     tech: ['Figma', 'React', 'TypeScript', 'Vercel'],
     role: 'Founder & Lead',
-    link: 'https://snapweaz.in',
+    link: 'https://www.snapweaz.in',
     hasDetailPage: true,
   },
   {
@@ -17,7 +17,7 @@ export const projects = [
     description: 'ESP32-CAM-based license plate recognition system for real-time vehicle detection using computer vision and OCR technology.',
     tech: ['ESP32-CAM', 'Python', 'OpenCV', 'OCR'],
     role: 'Developer',
-    link: 'https://anshhedau.snapweaz.in/roadvission',
+    link: 'https://youtu.be/0RhrimfC_N8?si=YPUbS63CRin9xwpK',
     hasDetailPage: true,
   },
   {
@@ -26,7 +26,7 @@ export const projects = [
     description: 'A digital platform to help people find and recover lost items through a community-driven system with image recognition.',
     tech: ['React', 'Node.js', 'MongoDB', 'Cloud Storage'],
     role: 'Developer & Designer',
-    link: '#',
+    link: 'https://lost-and-found-ansh-hedau.netlify.app/',
     hasDetailPage: true,
   },
   {
@@ -35,7 +35,16 @@ export const projects = [
     description: 'OCR tool using Python & Tesseract to extract text from images with enhanced accuracy via noise reduction and thresholding.',
     tech: ['Python', 'Tesseract', 'OpenCV', 'Image Processing'],
     role: 'Developer',
-    link: 'https://anshhedau.snapweaz.in/imagetotext',
+    link: 'https://stalwart-seahorse-554dae.netlify.app/',
+    hasDetailPage: true,
+  },
+  {
+    id: 'employee-portal',
+    title: 'SnapWeaz - Employee Portal',
+    description: 'Internal employee management portal for SnapWeaz with database integration, employee records, and administrative tools.',
+    tech: ['React', 'Database', 'Authentication', 'Admin Dashboard'],
+    role: 'Developer',
+    link: 'https://employee-database-ansh-hedau-snapweaz.netlify.app/',
     hasDetailPage: true,
   },
 ];
