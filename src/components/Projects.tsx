@@ -1,33 +1,42 @@
-import { ExternalLink, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const projects = [
+export const projects = [
   {
+    id: 'snapweaz',
     title: 'SnapWeaz',
     description: 'Design and Tech Studio building digital products and experiences. Led design, development, and strategy for multiple client projects.',
     tech: ['Figma', 'React', 'TypeScript', 'Vercel'],
     role: 'Founder & Lead',
     link: 'https://snapweaz.in',
+    hasDetailPage: true,
   },
   {
+    id: 'road-vision',
     title: 'Road Vision - ANPR',
     description: 'ESP32-CAM-based license plate recognition system for real-time vehicle detection using computer vision and OCR technology.',
     tech: ['ESP32-CAM', 'Python', 'OpenCV', 'OCR'],
     role: 'Developer',
     link: 'https://anshhedau.snapweaz.in/roadvission',
+    hasDetailPage: true,
   },
   {
-    title: 'AI Indoor Navigation',
-    description: 'AR-based indoor navigation system using AI for pathfinding and real-time positioning in complex indoor environments.',
-    tech: ['Python', 'AR', 'AI/ML', 'Computer Vision'],
+    id: 'virtual-lost-found',
+    title: 'Virtual Lost & Found',
+    description: 'A digital platform to help people find and recover lost items through a community-driven system with image recognition.',
+    tech: ['React', 'Node.js', 'MongoDB', 'Cloud Storage'],
     role: 'Developer & Designer',
     link: '#',
+    hasDetailPage: true,
   },
   {
+    id: 'snap2sheet',
     title: 'Snap2Sheet',
     description: 'OCR tool using Python & Tesseract to extract text from images with enhanced accuracy via noise reduction and thresholding.',
     tech: ['Python', 'Tesseract', 'OpenCV', 'Image Processing'],
     role: 'Developer',
     link: 'https://anshhedau.snapweaz.in/imagetotext',
+    hasDetailPage: true,
   },
 ];
 
@@ -46,11 +55,9 @@ const Projects = () => {
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 gap-6">
           {projects.map((project, index) => (
-            <a
-              key={project.title}
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              key={project.id}
+              to={`/projects/${project.id}`}
               className="project-card group cursor-pointer"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -81,7 +88,7 @@ const Projects = () => {
                   </span>
                 ))}
               </div>
-            </a>
+            </Link>
           ))}
         </div>
       </div>
