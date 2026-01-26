@@ -14,13 +14,13 @@ const About = () => {
           {/* Content */}
           <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
             <p>
-              I'm a <span className="text-foreground font-medium">Computer Science student at DYPIU</span>, 
+              I'm a <span className="text-foreground font-medium">Computer Science student specializing in Cloud Computing at DYPIU</span>, 
               passionate about building things that live at the intersection of design and technology.
             </p>
             
             <p>
               Whether it's crafting <span className="text-foreground">intuitive user interfaces</span>, 
-              developing <span className="text-foreground">AI-powered systems</span>, or leading 
+              developing <span className="text-foreground">cloud-native solutions</span>, or leading 
               design projects — I thrive on turning complex ideas into elegant, functional products.
             </p>
 

@@ -12,14 +12,14 @@ const skillCategories = [
     skills: ['HTML/CSS', 'JavaScript', 'TypeScript', 'React', 'Git', 'PHP', 'MySQL'],
   },
   {
-    title: 'Tech & AI',
+    title: 'Cloud & AI',
     icon: Cpu,
-    skills: ['Computer Vision', 'ESP32', 'Python', 'OCR', 'Machine Learning', 'IoT'],
+    skills: ['AWS', 'Cloud Computing', 'Docker', 'Kubernetes', 'Computer Vision', 'Python', 'OCR', 'Machine Learning'],
   },
   {
     title: 'Tools',
     icon: Wrench,
-    skills: ['VS Code', 'GitHub', 'Linux', 'Vercel', 'Notion', 'AWS'],
+    skills: ['VS Code', 'GitHub', 'Linux', 'Vercel', 'Notion', 'AWS Console', 'ESP32', 'IoT'],
   },
 ];
 
