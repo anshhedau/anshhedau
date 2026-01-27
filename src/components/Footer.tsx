@@ -14,7 +14,7 @@ const Footer = () => {
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Ansh Hedau. All rights reserved.
+            © Ansh Hedau. Designed with precision and care.
           </p>
 
           {/* Back to top */}
