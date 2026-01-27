@@ -9,13 +9,13 @@ const contactLinks = [
   },
   {
     name: 'LinkedIn',
-    value: '/in/anshhedau',
+    value: 'anshhedau',
     href: 'https://linkedin.com/in/anshhedau',
     icon: Linkedin,
   },
   {
     name: 'GitHub',
-    value: '/anshhedau1',
+    value: 'anshhedau1',
     href: 'https://github.com/anshhedau1',
     icon: Github,
   },
@@ -24,6 +24,12 @@ const contactLinks = [
     value: '@anshhedau_',
     href: 'https://instagram.com/anshhedau_',
     icon: Instagram,
+  },
+  {
+    name: 'AWS Skills',
+    value: 'AWS Profile',
+    href: 'https://skillsprofile.skillbuilder.aws/user/anshhedau',
+    icon: ExternalLink,
   },
 ];
 
