@@ -12,7 +12,7 @@ const Hero = () => {
         {/* Greeting tag */}
         <div className="fade-in-up stagger-1">
           <span className="inline-block px-4 py-2 text-sm font-medium text-muted-foreground border border-border rounded-full mb-8">
-            CSE · Cloud Computing · UI/UX
+            CSE · Cloud Computing
             Designer · Engineer · Builder
           </span>
         </div>
