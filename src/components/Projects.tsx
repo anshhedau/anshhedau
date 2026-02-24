@@ -1,53 +1,8 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getProjects } from '@/lib/content';
 
-export const projects = [
-  {
-    id: 'snapweaz',
-    title: 'SnapWeaz',
-    description: 'Design and Tech Studio building digital products and experiences. Led design, development, and strategy for multiple client projects.',
-    tech: ['Figma', 'React', 'TypeScript', 'Vercel'],
-    role: 'Founder & Lead',
-    link: 'https://www.snapweaz.in',
-    hasDetailPage: true,
-  },
-  {
-    id: 'road-vision',
-    title: 'Road Vision - ANPR',
-    description: 'ESP32-CAM-based license plate recognition system for real-time vehicle detection using computer vision and OCR technology.',
-    tech: ['ESP32-CAM', 'Python', 'OpenCV', 'OCR'],
-    role: 'Developer',
-    link: 'https://youtu.be/0RhrimfC_N8?si=YPUbS63CRin9xwpK',
-    hasDetailPage: true,
-  },
-  {
-    id: 'virtual-lost-found',
-    title: 'Virtual Lost & Found',
-    description: 'A digital platform to help people find and recover lost items through a community-driven system with image recognition.',
-    tech: ['React', 'Node.js', 'MongoDB', 'Cloud Storage'],
-    role: 'Developer & Designer',
-    link: 'https://lost-and-found-ansh-hedau.netlify.app/',
-    hasDetailPage: true,
-  },
-  {
-    id: 'snap2sheet',
-    title: 'Snap2Sheet',
-    description: 'OCR tool using Python & Tesseract to extract text from images with enhanced accuracy via noise reduction and thresholding.',
-    tech: ['Python', 'Tesseract', 'OpenCV', 'Image Processing'],
-    role: 'Developer',
-    link: 'https://stalwart-seahorse-554dae.netlify.app/',
-    hasDetailPage: true,
-  },
-  {
-    id: 'employee-portal',
-    title: 'SnapWeaz - Employee Portal',
-    description: 'Internal employee management portal for SnapWeaz with database integration, employee records, and administrative tools.',
-    tech: ['React', 'Database', 'Authentication', 'Admin Dashboard'],
-    role: 'Developer',
-    link: 'https://employee-database-ansh-hedau-snapweaz.netlify.app/',
-    hasDetailPage: true,
-  },
-];
+export const projects = getProjects();
 
 const Projects = () => {
   return (
@@ -88,7 +43,7 @@ const Projects = () => {
 
               {/* Tech Stack */}
               <div className="flex flex-wrap gap-2">
-                {project.tech.map((tech) => (
+                {(project.tech as string[] || []).map((tech: string) => (
                   <span
                     key={tech}
                     className="text-xs px-2.5 py-1 bg-secondary rounded-md text-muted-foreground"

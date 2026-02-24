@@ -1,4 +1,7 @@
 import { ChevronDown } from 'lucide-react';
+import { getHero } from '@/lib/content';
+
+const hero = getHero();
 
 const Hero = () => {
   return (
@@ -12,30 +15,28 @@ const Hero = () => {
         {/* Greeting tag */}
         <div className="fade-in-up stagger-1">
           <span className="inline-block px-4 py-2 text-sm font-medium text-muted-foreground border border-border rounded-full mb-8">
-            CSE · Cloud Computing · Developer · Builder
+            {hero.tagline || 'CSE · Cloud Computing · Developer · Builder'}
           </span>
         </div>
 
         {/* Name */}
         <h1 className="fade-in-up stagger-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold mb-6 leading-tight">
           Hey, I'm{' '}
-          <span className="text-gradient">Ansh Hedau</span>
+          <span className="text-gradient">{hero.name || 'Ansh Hedau'}</span>
         </h1>
 
         {/* Subtitle */}
         <p className="fade-in-up stagger-3 text-lg sm:text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-          I design and build products that merge{' '}
-          <span className="text-foreground">aesthetics</span> with{' '}
-          <span className="text-foreground">innovation</span>.
+          {hero.subtitle || 'I design and build products that merge aesthetics with innovation.'}
         </p>
 
         {/* CTA Buttons */}
         <div className="fade-in-up stagger-4 flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="#projects" className="btn-primary">
-            View My Work
+          <a href={hero.cta_primary_link || '#projects'} className="btn-primary">
+            {hero.cta_primary_text || 'View My Work'}
           </a>
-          <a href="#contact" className="btn-outline">
-            Get in Touch
+          <a href={hero.cta_secondary_link || '#contact'} className="btn-outline">
+            {hero.cta_secondary_text || 'Get in Touch'}
           </a>
         </div>
       </div>

@@ -1,37 +1,10 @@
-import { Mail, Linkedin, Github, Instagram, ExternalLink } from 'lucide-react';
+import { Mail, Linkedin, Github, Instagram, ExternalLink, Twitter } from 'lucide-react';
+import { getContact } from '@/lib/content';
 
-const contactLinks = [
-  {
-    name: 'Email',
-    value: 'anshhedau@outlook.com',
-    href: 'mailto:anshhedau@outlook.com',
-    icon: Mail,
-  },
-  {
-    name: 'LinkedIn',
-    value: 'anshhedau',
-    href: 'https://linkedin.com/in/anshhedau',
-    icon: Linkedin,
-  },
-  {
-    name: 'GitHub',
-    value: 'anshhedau1',
-    href: 'https://github.com/anshhedau1',
-    icon: Github,
-  },
-  {
-    name: 'Instagram',
-    value: '@anshhedau_',
-    href: 'https://instagram.com/anshhedau_',
-    icon: Instagram,
-  },
-  {
-    name: 'AWS Skills',
-    value: 'AWS Profile',
-    href: 'https://skillsprofile.skillbuilder.aws/user/anshhedau',
-    icon: ExternalLink,
-  },
-];
+const iconMap: Record<string, any> = { Mail, Linkedin, Github, Instagram, ExternalLink, Twitter };
+
+const contact = getContact();
+const contactLinks = (contact.links as Array<{ name: string; value: string; href: string; icon: string }>) || [];
 
 const Contact = () => {
   return (
@@ -41,16 +14,16 @@ const Contact = () => {
           {/* Section Header */}
           <span className="text-primary text-sm font-medium uppercase tracking-wider">Contact</span>
           <h2 className="text-3xl md:text-4xl font-display font-bold mt-2 mb-4">
-            Let's connect
+            {contact.heading || "Let's connect"}
           </h2>
           <p className="text-muted-foreground text-lg mb-12">
-            Have a project in mind or just want to say hi? I'd love to hear from you.
+            {contact.subheading || "Have a project in mind or just want to say hi? I'd love to hear from you."}
           </p>
 
           {/* Contact Links */}
           <div className="grid sm:grid-cols-2 gap-4 mb-12">
             {contactLinks.map((link) => {
-              const Icon = link.icon;
+              const Icon = iconMap[link.icon] || ExternalLink;
               return (
                 <a
                   key={link.name}
@@ -73,7 +46,7 @@ const Contact = () => {
 
           {/* CTA */}
           <a
-            href="mailto:anshhedau@outlook.com"
+            href={`mailto:${contact.email || 'anshhedau@outlook.com'}`}
             className="btn-primary inline-flex"
           >
             <Mail className="w-5 h-5" />
