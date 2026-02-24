@@ -14,11 +14,22 @@ function parseYaml(yaml: string): Record<string, any> {
   let currentList: string[] | Record<string, string>[] | null = null;
   let listItemObj: Record<string, string> | null = null;
 
+  let lastStringIndex = -1; // track last simple list item index for continuation lines
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
     // Skip empty lines
     if (line.trim() === '') continue;
+
+    // Continuation line for a simple list item (indented text that's not a new item or key)
+    if (currentList !== null && listItemObj === null && lastStringIndex >= 0) {
+      const continuation = line.match(/^    (.+)$/);
+      if (continuation && !line.match(/^    \w+:\s/) && !line.match(/^  -/)) {
+        (currentList as string[])[lastStringIndex] += ' ' + continuation[1].replace(/^"|"$/g, '').trim();
+        continue;
+      }
+    }
 
     // Nested list item field (e.g., "    name: value")
     const nestedField = line.match(/^    (\w+):\s*"?(.+?)"?\s*$/);
@@ -34,6 +45,7 @@ function parseYaml(yaml: string): Record<string, any> {
         (currentList as Record<string, string>[]).push(listItemObj);
       }
       listItemObj = { [listObjItem[1]]: listObjItem[2].replace(/^"|"$/g, '') };
+      lastStringIndex = -1;
       continue;
     }
 
@@ -41,6 +53,7 @@ function parseYaml(yaml: string): Record<string, any> {
     const listItem = line.match(/^  - "?(.+?)"?\s*$/);
     if (listItem && currentList !== null && listItemObj === null) {
       (currentList as string[]).push(listItem[1].replace(/^"|"$/g, ''));
+      lastStringIndex = (currentList as string[]).length - 1;
       continue;
     }
 
