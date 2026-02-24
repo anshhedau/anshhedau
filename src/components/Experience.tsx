@@ -1,19 +1,6 @@
-const experiences = [
-  {
-    title: 'DevOps Engineer & Strategic Advisor',
-    company: 'DesignFlu',
-    companyLink: 'https://linkedin.com/company/designflu/',
-    period: 'August 2025 - Present',
-    description: 'Streamlined infrastructure and deployment pipelines, enhancing system reliability and supporting scalable product delivery.',
-  },
-  {
-    title: 'Tech and Design Intern',
-    company: 'SnapWeaz',
-    companyLink: 'https://linkedin.com/company/snapweaz/',
-    period: 'May 2025 - July 2025',
-    description: 'Contributed to real-world projects, collaborating across teams to deliver innovative tech and design solutions.',
-  },
-];
+import { getExperience } from '@/lib/content';
+
+const experiences = getExperience();
 
 const Experience = () => {
   return (

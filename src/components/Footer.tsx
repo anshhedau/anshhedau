@@ -1,6 +1,8 @@
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
+import { getFooter } from '@/lib/content';
 
+const footer = getFooter();
+
+const Footer = () => {
   return (
     <footer className="py-8 border-t border-border">
       <div className="section-container">
@@ -8,13 +10,13 @@ const Footer = () => {
           {/* Brand */}
           <div className="flex items-center gap-2">
             <span className="font-display font-bold text-foreground">
-              Ansh<span className="text-primary">.</span>
+              {footer.brand || 'Ansh'}<span className="text-primary">.</span>
             </span>
           </div>
 
           {/* Copyright */}
           <p className="text-sm text-muted-foreground">
-            © Ansh Hedau. Designed with precision and care.
+            {footer.copyright || '© Ansh Hedau. Designed with precision and care.'}
           </p>
 
           {/* Back to top */}

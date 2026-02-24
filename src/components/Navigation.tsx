@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
+import { getResume } from '@/lib/content';
+
+const resume = getResume();
 
 const navLinks = [
   { name: 'About', href: '#about' },
@@ -25,6 +28,9 @@ const Navigation = () => {
     setIsMobileMenuOpen(false);
   };
 
+  const resumeFile = resume.file || '/resume.pdf';
+  const showResume = resume.show_in_nav !== false;
+
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -45,14 +51,16 @@ const Navigation = () => {
                 {link.name}
               </a>
             ))}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-sm py-2 px-5"
-            >
-              Resume
-            </a>
+            {showResume && (
+              <a
+                href={resumeFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-sm py-2 px-5"
+              >
+                Resume
+              </a>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -80,14 +88,16 @@ const Navigation = () => {
                 {link.name}
               </a>
             ))}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-center mt-2"
-            >
-              Resume
-            </a>
+            {showResume && (
+              <a
+                href={resumeFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-center mt-2"
+              >
+                Resume
+              </a>
+            )}
           </div>
         </div>
       )}

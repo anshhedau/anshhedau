@@ -1,0 +1,116 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+collections:
+  # ── Site Settings (file collection) ──
+  - name: "settings"
+    label: "Site Settings"
+    files:
+      - name: "hero"
+        label: "Hero Section"
+        file: "content/hero.md"
+        fields:
+          - { name: "tagline", label: "Tagline (pill text)", widget: "string" }
+          - { name: "name", label: "Name", widget: "string" }
+          - { name: "subtitle", label: "Subtitle", widget: "text" }
+          - { name: "cta_primary_text", label: "Primary CTA Text", widget: "string" }
+          - { name: "cta_primary_link", label: "Primary CTA Link", widget: "string" }
+          - { name: "cta_secondary_text", label: "Secondary CTA Text", widget: "string" }
+          - { name: "cta_secondary_link", label: "Secondary CTA Link", widget: "string" }
+
+      - name: "footer"
+        label: "Footer"
+        file: "content/footer.md"
+        fields:
+          - { name: "brand", label: "Brand Name", widget: "string" }
+          - { name: "copyright", label: "Copyright Text", widget: "string" }
+
+      - name: "about"
+        label: "About Section"
+        file: "content/about.md"
+        fields:
+          - { name: "heading", label: "Heading", widget: "string" }
+          - { name: "subheading", label: "Subheading", widget: "string" }
+          - name: "paragraphs"
+            label: "Paragraphs"
+            widget: "list"
+            field: { name: "text", label: "Paragraph", widget: "text" }
+          - name: "beliefs"
+            label: "Beliefs"
+            widget: "list"
+            field: { name: "text", label: "Belief", widget: "string" }
+
+      - name: "contact"
+        label: "Contact Section"
+        file: "content/contact.md"
+        fields:
+          - { name: "heading", label: "Heading", widget: "string" }
+          - { name: "subheading", label: "Subheading", widget: "string" }
+          - { name: "email", label: "Email Address", widget: "string" }
+          - name: "links"
+            label: "Contact Links"
+            widget: "list"
+            fields:
+              - { name: "name", label: "Name", widget: "string" }
+              - { name: "value", label: "Display Value", widget: "string" }
+              - { name: "href", label: "URL", widget: "string" }
+              - { name: "icon", label: "Icon", widget: "select", options: ["Mail", "Linkedin", "Github", "Instagram", "ExternalLink", "Twitter"] }
+
+      - name: "resume"
+        label: "Resume"
+        file: "content/resume.md"
+        fields:
+          - { name: "file", label: "Resume PDF", widget: "file" }
+          - { name: "show_in_nav", label: "Show in Navigation", widget: "boolean", default: true }
+
+  # ── Skills (folder collection) ──
+  - name: "skills"
+    label: "Skills"
+    folder: "content/skills"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Category Title", widget: "string" }
+      - { name: "icon", label: "Icon", widget: "select", options: ["Palette", "Code", "Cpu", "Wrench", "Globe", "Server", "Database", "Shield"] }
+      - { name: "order", label: "Display Order", widget: "number", value_type: "int" }
+      - name: "skills"
+        label: "Skills"
+        widget: "list"
+        field: { name: "skill", label: "Skill", widget: "string" }
+
+  # ── Projects (folder collection) ──
+  - name: "projects"
+    label: "Projects"
+    folder: "content/projects"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "id", label: "ID (URL slug)", widget: "string" }
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "description", label: "Description", widget: "text" }
+      - { name: "role", label: "Role", widget: "string" }
+      - { name: "link", label: "External Link", widget: "string" }
+      - { name: "order", label: "Display Order", widget: "number", value_type: "int" }
+      - { name: "hasDetailPage", label: "Has Detail Page", widget: "boolean", default: true }
+      - name: "tech"
+        label: "Tech Stack"
+        widget: "list"
+        field: { name: "item", label: "Technology", widget: "string" }
+
+  # ── Experience (folder collection) ──
+  - name: "experience"
+    label: "Experience"
+    folder: "content/experience"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: "title", label: "Job Title", widget: "string" }
+      - { name: "company", label: "Company", widget: "string" }
+      - { name: "companyLink", label: "Company LinkedIn URL", widget: "string" }
+      - { name: "period", label: "Period", widget: "string" }
+      - { name: "description", label: "Description", widget: "text" }
+      - { name: "order", label: "Display Order", widget: "number", value_type: "int" }

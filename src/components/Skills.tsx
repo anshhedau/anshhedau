@@ -1,27 +1,9 @@
-import { Palette, Code, Cpu, Wrench } from 'lucide-react';
+import { Palette, Code, Cpu, Wrench, Globe, Server, Database, Shield } from 'lucide-react';
+import { getSkills } from '@/lib/content';
 
-const skillCategories = [
-  {
-    title: 'Design',
-    icon: Palette,
-    skills: ['UI/UX Design', 'Figma', 'Branding', 'Design Systems', 'Prototyping', 'Visual Design'],
-  },
-  {
-    title: 'Development',
-    icon: Code,
-    skills: ['HTML/CSS', 'JavaScript', 'TypeScript', 'React', 'Git', 'PHP', 'MySQL'],
-  },
-  {
-    title: 'Cloud & AI',
-    icon: Cpu,
-    skills: ['AWS', 'Cloud Computing', 'Docker', 'Kubernetes', 'Computer Vision', 'Python', 'OCR', 'Machine Learning'],
-  },
-  {
-    title: 'Tools',
-    icon: Wrench,
-    skills: ['VS Code', 'GitHub', 'Linux', 'Vercel', 'Notion', 'AWS Console', 'ESP32', 'IoT'],
-  },
-];
+const iconMap: Record<string, any> = { Palette, Code, Cpu, Wrench, Globe, Server, Database, Shield };
+
+const skillCategories = getSkills();
 
 const Skills = () => {
   return (
@@ -38,7 +20,8 @@ const Skills = () => {
         {/* Skills Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {skillCategories.map((category, index) => {
-            const Icon = category.icon;
+            const Icon = iconMap[category.icon] || Wrench;
+            const skills = (category.skills as string[]) || [];
             return (
               <div
                 key={category.title}
@@ -57,7 +40,7 @@ const Skills = () => {
 
                 {/* Skills List */}
                 <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
+                  {skills.map((skill) => (
                     <span key={skill} className="skill-tag">
                       {skill}
                     </span>
