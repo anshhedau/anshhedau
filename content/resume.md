@@ -1,4 +1,4 @@
 ---
-file: "/resume.pdf"
-show_in_nav: true
+file: /resume.pdf
+show_in_nav: false
 ---
