@@ -13,7 +13,8 @@ function parseYaml(yaml: string): Record<string, any> {
   let currentKey = '';
   let currentList: string[] | Record<string, string>[] | null = null;
   let listItemObj: Record<string, string> | null = null;
-  let lastStringIndex = -1;
+
+  let lastStringIndex = -1; // track last simple list item index for continuation lines
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
@@ -97,7 +98,6 @@ function parseYaml(yaml: string): Record<string, any> {
       currentKey = listStart[1];
       currentList = [];
       listItemObj = null;
-      lastStringIndex = -1;
       continue;
     }
   }
@@ -147,11 +147,6 @@ export function getExperience() {
   return loadCollection(experienceFiles);
 }
 
-export function getProjectBySlug(slug: string): Record<string, any> | null {
-  const all = getProjects();
-  return all.find((p) => p.id === slug) || null;
-}
-
 export function getHero() {
   return getSingleContent('hero');
 }
@@ -170,12 +165,4 @@ export function getFooter() {
 
 export function getResume() {
   return getSingleContent('resume');
-}
-
-export function getNavigation() {
-  return getSingleContent('navigation');
-}
-
-export function getSeo() {
-  return getSingleContent('seo');
 }

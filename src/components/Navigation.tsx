@@ -1,19 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
-import { getResume, getNavigation } from '@/lib/content';
+import { getResume } from '@/lib/content';
 
 const resume = getResume();
-const nav = getNavigation();
 
-const navLinks = ((nav.links as Array<{ name: string; href: string; visible?: boolean }>) || [
-  { name: 'About', href: '#about', visible: true },
-  { name: 'Skills', href: '#skills', visible: true },
-  { name: 'Projects', href: '#projects', visible: true },
-  { name: 'Experience', href: '#experience', visible: true },
-  { name: 'Contact', href: '#contact', visible: true },
-]).filter((l) => l.visible !== false);
-
-const logoText = nav.logo_text || 'Ansh';
+const navLinks = [
+  { name: 'About', href: '#about' },
+  { name: 'Skills', href: '#skills' },
+  { name: 'Projects', href: '#projects' },
+  { name: 'Experience', href: '#experience' },
+  { name: 'Contact', href: '#contact' },
+];
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,7 +41,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <a href="#" className="text-xl font-display font-bold text-foreground hover:text-primary transition-colors">
-            {logoText}<span className="text-primary">.</span>
+            Ansh<span className="text-primary">.</span>
           </a>
 
           {/* Desktop Navigation */}

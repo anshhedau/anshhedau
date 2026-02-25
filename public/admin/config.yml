@@ -5,223 +5,112 @@ backend:
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
-# Slug sanitization
-slug:
-  encoding: "ascii"
-  clean_accents: true
-
 collections:
   # ── Site Settings (file collection) ──
   - name: "settings"
-    label: "⚙️ Site Settings"
-    description: "Global settings for your portfolio site"
+    label: "Site Settings"
     files:
       - name: "hero"
-        label: "🏠 Hero Section"
+        label: "Hero Section"
         file: "content/hero.md"
         fields:
-          - { name: "tagline", label: "Tagline (pill text)", widget: "string", hint: "Shown in the rounded pill above your name" }
-          - { name: "name", label: "Your Name", widget: "string" }
-          - { name: "subtitle", label: "Subtitle", widget: "text", hint: "One-liner that describes you" }
-          - { name: "profile_image", label: "Profile Image", widget: "image", required: false, hint: "Optional profile photo for the hero section" }
-          - { name: "availability", label: "Availability Status", widget: "string", required: false, hint: "e.g. 'Available for freelance' or 'Open to work'" }
-          - { name: "cta_primary_text", label: "Primary Button Text", widget: "string" }
-          - { name: "cta_primary_link", label: "Primary Button Link", widget: "string" }
-          - { name: "cta_secondary_text", label: "Secondary Button Text", widget: "string" }
-          - { name: "cta_secondary_link", label: "Secondary Button Link", widget: "string" }
-
-      - name: "about"
-        label: "👤 About Section"
-        file: "content/about.md"
-        fields:
-          - { name: "heading", label: "Section Heading", widget: "string" }
-          - { name: "subheading", label: "Section Label", widget: "string", hint: "Small text above the heading" }
-          - { name: "profile_image", label: "About Photo", widget: "image", required: false, hint: "Optional photo for the about section" }
-          - name: "paragraphs"
-            label: "About Paragraphs"
-            widget: "list"
-            hint: "Each item is a full paragraph. Write as much as you want."
-            field: { name: "text", label: "Paragraph", widget: "text" }
-          - name: "beliefs"
-            label: "Core Beliefs / Values"
-            widget: "list"
-            hint: "Short phrases that define your work philosophy"
-            field: { name: "text", label: "Belief", widget: "string" }
-          - name: "stats"
-            label: "Stats (optional)"
-            widget: "list"
-            required: false
-            hint: "Key numbers like '15+ Projects', '2+ Years Experience'"
-            fields:
-              - { name: "label", label: "Label", widget: "string", hint: "e.g. 'Projects Completed'" }
-              - { name: "value", label: "Value", widget: "string", hint: "e.g. '15+'" }
-
-      - name: "contact"
-        label: "📬 Contact Section"
-        file: "content/contact.md"
-        fields:
-          - { name: "heading", label: "Section Heading", widget: "string" }
-          - { name: "subheading", label: "Section Description", widget: "text" }
-          - { name: "email", label: "Email Address", widget: "string" }
-          - { name: "cta_text", label: "Email Button Text", widget: "string", default: "Send me an email", required: false }
-          - name: "links"
-            label: "Contact / Social Links"
-            widget: "list"
-            hint: "Add all your social profiles and contact methods"
-            fields:
-              - { name: "name", label: "Platform Name", widget: "string", hint: "e.g. LinkedIn, GitHub" }
-              - { name: "value", label: "Display Text", widget: "string", hint: "e.g. @anshhedau" }
-              - { name: "href", label: "Full URL", widget: "string", hint: "e.g. https://linkedin.com/in/anshhedau" }
-              - { name: "icon", label: "Icon", widget: "select", options: ["Mail", "Linkedin", "Github", "Instagram", "ExternalLink", "Twitter", "Globe", "Youtube", "Dribbble", "Figma"] }
+          - { name: "tagline", label: "Tagline (pill text)", widget: "string" }
+          - { name: "name", label: "Name", widget: "string" }
+          - { name: "subtitle", label: "Subtitle", widget: "text" }
+          - { name: "cta_primary_text", label: "Primary CTA Text", widget: "string" }
+          - { name: "cta_primary_link", label: "Primary CTA Link", widget: "string" }
+          - { name: "cta_secondary_text", label: "Secondary CTA Text", widget: "string" }
+          - { name: "cta_secondary_link", label: "Secondary CTA Link", widget: "string" }
 
       - name: "footer"
-        label: "🔻 Footer"
+        label: "Footer"
         file: "content/footer.md"
         fields:
-          - { name: "brand", label: "Brand Name", widget: "string", hint: "Shown in the footer logo area" }
+          - { name: "brand", label: "Brand Name", widget: "string" }
           - { name: "copyright", label: "Copyright Text", widget: "string" }
-          - { name: "tagline", label: "Footer Tagline", widget: "string", required: false, hint: "Optional short tagline below the brand" }
+
+      - name: "about"
+        label: "About Section"
+        file: "content/about.md"
+        fields:
+          - { name: "heading", label: "Heading", widget: "string" }
+          - { name: "subheading", label: "Subheading", widget: "string" }
+          - name: "paragraphs"
+            label: "Paragraphs"
+            widget: "list"
+            field: { name: "text", label: "Paragraph", widget: "text" }
+          - name: "beliefs"
+            label: "Beliefs"
+            widget: "list"
+            field: { name: "text", label: "Belief", widget: "string" }
+
+      - name: "contact"
+        label: "Contact Section"
+        file: "content/contact.md"
+        fields:
+          - { name: "heading", label: "Heading", widget: "string" }
+          - { name: "subheading", label: "Subheading", widget: "string" }
+          - { name: "email", label: "Email Address", widget: "string" }
+          - name: "links"
+            label: "Contact Links"
+            widget: "list"
+            fields:
+              - { name: "name", label: "Name", widget: "string" }
+              - { name: "value", label: "Display Value", widget: "string" }
+              - { name: "href", label: "URL", widget: "string" }
+              - { name: "icon", label: "Icon", widget: "select", options: ["Mail", "Linkedin", "Github", "Instagram", "ExternalLink", "Twitter"] }
 
       - name: "resume"
-        label: "📄 Resume"
+        label: "Resume"
         file: "content/resume.md"
         fields:
-          - { name: "file", label: "Resume PDF", widget: "file", hint: "Upload your latest resume" }
-          - { name: "show_in_nav", label: "Show Resume Button in Navigation", widget: "boolean", default: true }
-
-      - name: "seo"
-        label: "🔍 SEO & Meta"
-        file: "content/seo.md"
-        fields:
-          - { name: "site_title", label: "Site Title", widget: "string", hint: "Shown in browser tab (keep under 60 chars)" }
-          - { name: "meta_description", label: "Meta Description", widget: "text", hint: "Search engine description (keep under 160 chars)" }
-          - { name: "og_image", label: "Social Share Image (OG Image)", widget: "image", required: false, hint: "Image shown when sharing on social media (1200x630 recommended)" }
-          - { name: "keywords", label: "SEO Keywords", widget: "string", required: false, hint: "Comma-separated keywords" }
-          - { name: "author", label: "Author Name", widget: "string", required: false }
-
-      - name: "navigation"
-        label: "🧭 Navigation"
-        file: "content/navigation.md"
-        fields:
-          - { name: "logo_text", label: "Logo Text", widget: "string", hint: "Text shown as the nav logo" }
-          - name: "links"
-            label: "Navigation Links"
-            widget: "list"
-            hint: "Links shown in the navbar"
-            fields:
-              - { name: "name", label: "Link Text", widget: "string" }
-              - { name: "href", label: "Link URL", widget: "string", hint: "Use #about, #skills, etc. for sections" }
-              - { name: "visible", label: "Visible", widget: "boolean", default: true }
+          - { name: "file", label: "Resume PDF", widget: "file" }
+          - { name: "show_in_nav", label: "Show in Navigation", widget: "boolean", default: true }
 
   # ── Skills (folder collection) ──
   - name: "skills"
-    label: "🛠️ Skills"
-    label_singular: "Skill Category"
-    description: "Manage your skill categories and individual skills"
+    label: "Skills"
     folder: "content/skills"
     create: true
     slug: "{{slug}}"
     fields:
-      - { name: "title", label: "Category Title", widget: "string", hint: "e.g. Design, Development, Cloud & AI" }
-      - { name: "icon", label: "Icon", widget: "select", options: ["Palette", "Code", "Cpu", "Wrench", "Globe", "Server", "Database", "Shield", "Smartphone", "Zap", "Layers", "Terminal", "Monitor", "Cloud", "Lock"] }
-      - { name: "order", label: "Display Order", widget: "number", value_type: "int", hint: "Lower numbers appear first" }
-      - { name: "description", label: "Category Description", widget: "text", required: false, hint: "Optional short description of this skill area" }
+      - { name: "title", label: "Category Title", widget: "string" }
+      - { name: "icon", label: "Icon", widget: "select", options: ["Palette", "Code", "Cpu", "Wrench", "Globe", "Server", "Database", "Shield"] }
+      - { name: "order", label: "Display Order", widget: "number", value_type: "int" }
       - name: "skills"
         label: "Skills"
         widget: "list"
-        hint: "Add individual skills in this category"
-        field: { name: "skill", label: "Skill Name", widget: "string" }
+        field: { name: "skill", label: "Skill", widget: "string" }
 
   # ── Projects (folder collection) ──
   - name: "projects"
-    label: "🚀 Projects"
-    label_singular: "Project"
-    description: "Manage your portfolio projects with full detail pages"
+    label: "Projects"
     folder: "content/projects"
     create: true
     slug: "{{slug}}"
     fields:
-      - { name: "id", label: "URL Slug", widget: "string", hint: "Used in the URL: /projects/your-slug" }
-      - { name: "title", label: "Project Title", widget: "string" }
-      - { name: "description", label: "Short Description", widget: "text", hint: "Shown on the projects grid card" }
-      - { name: "cover_image", label: "Cover Image", widget: "image", required: false, hint: "Featured image for the project" }
-      - { name: "role", label: "Your Role", widget: "string", hint: "e.g. Developer, Designer, Founder" }
-      - { name: "category", label: "Category", widget: "select", options: ["Web App", "Mobile App", "Design", "IoT", "AI/ML", "Full Stack", "Open Source", "Other"], required: false }
-      - { name: "link", label: "Live Demo URL", widget: "string", required: false, hint: "Link to the live project" }
-      - { name: "github", label: "GitHub URL", widget: "string", required: false, hint: "Link to the source code" }
-      - { name: "duration", label: "Project Duration", widget: "string", required: false, hint: "e.g. 3 months, Jan 2024 - Mar 2024" }
-      - { name: "client", label: "Client / Organization", widget: "string", required: false }
-      - { name: "order", label: "Display Order", widget: "number", value_type: "int", hint: "Lower numbers appear first" }
-      - { name: "featured", label: "Featured Project", widget: "boolean", default: false, hint: "Featured projects get highlighted" }
+      - { name: "id", label: "ID (URL slug)", widget: "string" }
+      - { name: "title", label: "Title", widget: "string" }
+      - { name: "description", label: "Description", widget: "text" }
+      - { name: "role", label: "Role", widget: "string" }
+      - { name: "link", label: "External Link", widget: "string" }
+      - { name: "order", label: "Display Order", widget: "number", value_type: "int" }
       - { name: "hasDetailPage", label: "Has Detail Page", widget: "boolean", default: true }
       - name: "tech"
         label: "Tech Stack"
         widget: "list"
-        hint: "Technologies used in this project"
         field: { name: "item", label: "Technology", widget: "string" }
-      - name: "full_description"
-        label: "Full Description (Detail Page)"
-        widget: "list"
-        required: false
-        hint: "Each item is a paragraph shown on the project detail page"
-        field: { name: "paragraph", label: "Paragraph", widget: "text" }
-      - name: "features"
-        label: "Key Features"
-        widget: "list"
-        required: false
-        hint: "List of features / highlights of this project"
-        field: { name: "feature", label: "Feature", widget: "string" }
-      - name: "challenges"
-        label: "Challenges & Solutions"
-        widget: "list"
-        required: false
-        hint: "Technical challenges you overcame"
-        field: { name: "challenge", label: "Challenge", widget: "string" }
-      - { name: "outcome", label: "Outcome / Impact", widget: "text", required: false, hint: "What was the result? Metrics, achievements, etc." }
-      - name: "gallery"
-        label: "Project Gallery"
-        widget: "list"
-        required: false
-        hint: "Screenshots or images of the project"
-        fields:
-          - { name: "image", label: "Image", widget: "image" }
-          - { name: "caption", label: "Caption", widget: "string", required: false }
-      - name: "testimonial"
-        label: "Client Testimonial"
-        widget: "object"
-        required: false
-        fields:
-          - { name: "quote", label: "Quote", widget: "text", required: false }
-          - { name: "author", label: "Author Name", widget: "string", required: false }
-          - { name: "role", label: "Author Role", widget: "string", required: false }
 
   # ── Experience (folder collection) ──
   - name: "experience"
-    label: "💼 Experience"
-    label_singular: "Experience"
-    description: "Manage your work experience timeline"
+    label: "Experience"
     folder: "content/experience"
     create: true
     slug: "{{slug}}"
     fields:
       - { name: "title", label: "Job Title", widget: "string" }
-      - { name: "company", label: "Company Name", widget: "string" }
-      - { name: "companyLink", label: "Company URL", widget: "string", required: false, hint: "LinkedIn or website URL" }
-      - { name: "company_logo", label: "Company Logo", widget: "image", required: false }
-      - { name: "period", label: "Time Period", widget: "string", hint: "e.g. Jan 2024 - Present" }
-      - { name: "location", label: "Location", widget: "string", required: false, hint: "e.g. Pune, India · Remote" }
-      - { name: "type", label: "Employment Type", widget: "select", options: ["Full-time", "Part-time", "Internship", "Freelance", "Contract"], required: false }
-      - { name: "description", label: "Role Description", widget: "text" }
-      - { name: "order", label: "Display Order", widget: "number", value_type: "int", hint: "Lower numbers appear first (most recent first)" }
-      - name: "achievements"
-        label: "Key Achievements"
-        widget: "list"
-        required: false
-        hint: "Notable accomplishments in this role"
-        field: { name: "achievement", label: "Achievement", widget: "string" }
-      - name: "skills_used"
-        label: "Skills Used"
-        widget: "list"
-        required: false
-        hint: "Technologies and skills used in this role"
-        field: { name: "skill", label: "Skill", widget: "string" }
+      - { name: "company", label: "Company", widget: "string" }
+      - { name: "companyLink", label: "Company LinkedIn URL", widget: "string" }
+      - { name: "period", label: "Period", widget: "string" }
+      - { name: "description", label: "Description", widget: "text" }
+      - { name: "order", label: "Display Order", widget: "number", value_type: "int" }
