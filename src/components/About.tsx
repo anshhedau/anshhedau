@@ -3,6 +3,7 @@ import { getAbout } from '@/lib/content';
 const about = getAbout();
 const paragraphs = (about.paragraphs as string[]) || [];
 const beliefs = (about.beliefs as string[]) || [];
+const stats = (about.stats as Array<{ label: string; value: string }>) || [];
 
 const About = () => {
   return (
@@ -17,11 +18,30 @@ const About = () => {
             </h2>
           </div>
 
+          {/* Profile Image */}
+          {about.profile_image && (
+            <div className="mb-8 rounded-2xl overflow-hidden border border-border max-w-sm">
+              <img src={about.profile_image} alt="About me" className="w-full h-auto" />
+            </div>
+          )}
+
           {/* Content */}
           <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
+
+            {/* Stats */}
+            {stats.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 pt-6 border-t border-border mt-8">
+                {stats.map((stat, i) => (
+                  <div key={i} className="text-center sm:text-left">
+                    <p className="text-3xl font-display font-bold text-foreground">{stat.value}</p>
+                    <p className="text-sm text-muted-foreground mt-1">{stat.label}</p>
+                  </div>
+                ))}
+              </div>
+            )}
 
             {beliefs.length > 0 && (
               <div className="pt-6 border-t border-border mt-8">
