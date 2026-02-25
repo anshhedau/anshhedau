@@ -2,129 +2,13 @@ import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { projects } from '@/components/Projects';
-
-const projectDetails: Record<string, {
-  fullDescription: string[];
-  features: string[];
-  challenges: string[];
-  outcome: string;
-  github?: string;
-}> = {
-  'snapweaz': {
-    fullDescription: [
-      'SnapWeaz is a design and technology studio I founded to bridge the gap between aesthetics and functionality. We specialize in creating digital products that not only look stunning but also deliver exceptional user experiences.',
-      'As the Founder and Lead, I oversee all aspects of the business from client acquisition to project delivery. I work with a talented team of designers and developers to bring our clients\' visions to life.',
-      'Our portfolio includes brand identities, web applications, mobile apps, and comprehensive design systems for startups and established businesses alike.',
-    ],
-    features: [
-      'End-to-end product design and development',
-      'Brand identity and design systems',
-      'Web and mobile application development',
-      'UI/UX consulting and audits',
-      'Rapid prototyping and MVP development',
-    ],
-    challenges: [
-      'Building a client base from scratch while maintaining quality standards',
-      'Balancing multiple projects with varying complexity levels',
-      'Creating scalable processes for a growing team',
-    ],
-    outcome: 'Successfully delivered 15+ projects for clients across various industries, establishing SnapWeaz as a trusted partner for digital product development.',
-    github: 'https://github.com/anshhedau1',
-  },
-  'road-vision': {
-    fullDescription: [
-      'Road Vision is an Automatic Number Plate Recognition (ANPR) system built using ESP32-CAM for real-time vehicle detection and license plate recognition.',
-      'The system captures images of passing vehicles, processes them using computer vision algorithms, and extracts the license plate text using OCR technology.',
-      'This project demonstrates the integration of embedded systems with machine learning for practical, real-world applications in traffic monitoring and security.',
-    ],
-    features: [
-      'Real-time license plate detection using ESP32-CAM',
-      'OpenCV-based image preprocessing for enhanced accuracy',
-      'Tesseract OCR integration for text extraction',
-      'Web interface for monitoring detected plates',
-      'Database logging for historical records',
-    ],
-    challenges: [
-      'Optimizing image processing for the limited ESP32 resources',
-      'Handling varying lighting conditions and angles',
-      'Achieving high accuracy rates with different plate formats',
-    ],
-    outcome: 'Achieved 85%+ accuracy in license plate recognition under various conditions, demonstrating the viability of edge computing for ANPR applications.',
-    github: 'https://github.com/anshhedau1',
-  },
-  'virtual-lost-found': {
-    fullDescription: [
-      'Virtual Lost & Found is a community-driven digital platform designed to help people find and recover their lost items through an innovative matching system.',
-      'The platform allows users to post lost or found items with detailed descriptions and images. Using intelligent matching algorithms, the system suggests potential matches and connects users.',
-      'Built with a focus on user experience and accessibility, the platform makes the stressful process of losing items a bit easier to manage.',
-    ],
-    features: [
-      'Easy item posting with image uploads',
-      'Smart matching algorithm based on descriptions and categories',
-      'Real-time notifications for potential matches',
-      'Secure messaging between users',
-      'Location-based search and filtering',
-      'Cloud-based image storage and retrieval',
-    ],
-    challenges: [
-      'Designing an intuitive UX for users in stressful situations',
-      'Implementing efficient search and matching algorithms',
-      'Ensuring user privacy while enabling communication',
-    ],
-    outcome: 'Created a fully functional platform that streamlines the lost and found process, making it easier for communities to help each other recover lost belongings.',
-    github: 'https://github.com/anshhedau1',
-  },
-  'snap2sheet': {
-    fullDescription: [
-      'Snap2Sheet is an OCR (Optical Character Recognition) tool that extracts text from images with high accuracy using advanced image processing techniques.',
-      'The tool applies noise reduction, thresholding, and other preprocessing steps to enhance image quality before text extraction, significantly improving recognition accuracy.',
-      'Built with Python and Tesseract, it provides a simple yet powerful solution for digitizing printed or handwritten text.',
-    ],
-    features: [
-      'Multi-format image support (PNG, JPG, PDF)',
-      'Advanced noise reduction algorithms',
-      'Adaptive thresholding for varying backgrounds',
-      'Batch processing capability',
-      'Export to multiple formats (TXT, CSV, JSON)',
-    ],
-    challenges: [
-      'Handling diverse image qualities and formats',
-      'Optimizing preprocessing pipeline for different text types',
-      'Balancing accuracy with processing speed',
-    ],
-    outcome: 'Developed a reliable OCR solution that consistently achieves 90%+ accuracy on printed text, making document digitization quick and efficient.',
-    github: 'https://github.com/anshhedau1',
-  },
-  'employee-portal': {
-    fullDescription: [
-      'SnapWeaz Employee Portal is an internal management system designed to streamline employee data management and administrative tasks for the SnapWeaz team.',
-      'The portal provides a centralized database for employee information, making it easy to track team members, their roles, and project assignments.',
-      'Built with modern web technologies, it offers a clean, intuitive interface for HR and management tasks.',
-    ],
-    features: [
-      'Employee database with comprehensive profiles',
-      'Role-based access control and authentication',
-      'Project assignment and tracking',
-      'Administrative dashboard with analytics',
-      'Search and filter functionality',
-    ],
-    challenges: [
-      'Designing a secure authentication system',
-      'Creating an intuitive admin interface',
-      'Implementing efficient data management',
-    ],
-    outcome: 'Delivered a functional employee management system that streamlines internal operations and improves team coordination at SnapWeaz.',
-    github: 'https://github.com/anshhedau1',
-  },
-};
+import { getProjectBySlug } from '@/lib/content';
 
 const ProjectDetail = () => {
   const { projectId } = useParams<{ projectId: string }>();
-  const project = projects.find(p => p.id === projectId);
-  const details = projectId ? projectDetails[projectId] : null;
+  const project = projectId ? getProjectBySlug(projectId) : null;
 
-  if (!project || !details) {
+  if (!project) {
     return (
       <div className="min-h-screen bg-background">
         <Navigation />
@@ -142,6 +26,12 @@ const ProjectDetail = () => {
     );
   }
 
+  const fullDescription = (project.full_description as string[]) || [];
+  const features = (project.features as string[]) || [];
+  const challenges = (project.challenges as string[]) || [];
+  const tech = (project.tech as string[]) || [];
+  const gallery = (project.gallery as Array<{ image: string; caption?: string }>) || [];
+
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
@@ -156,10 +46,31 @@ const ProjectDetail = () => {
             Back to Projects
           </Link>
 
+          {/* Cover Image */}
+          {project.cover_image && (
+            <div className="mb-12 rounded-2xl overflow-hidden border border-border">
+              <img 
+                src={project.cover_image} 
+                alt={project.title} 
+                className="w-full h-auto object-cover max-h-[500px]"
+              />
+            </div>
+          )}
+
           {/* Header */}
           <div className="mb-12">
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex flex-wrap items-center gap-3 mb-4">
               <span className="text-primary text-sm font-medium uppercase tracking-wider">{project.role}</span>
+              {project.category && (
+                <span className="text-xs px-2.5 py-1 bg-secondary rounded-md text-muted-foreground">
+                  {project.category}
+                </span>
+              )}
+              {project.featured && (
+                <span className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-md font-medium">
+                  Featured
+                </span>
+              )}
             </div>
             <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">{project.title}</h1>
             <p className="text-xl text-muted-foreground max-w-3xl">{project.description}</p>
@@ -167,19 +78,19 @@ const ProjectDetail = () => {
 
           {/* Tech Stack */}
           <div className="flex flex-wrap gap-3 mb-12">
-            {project.tech.map((tech) => (
+            {tech.map((t) => (
               <span
-                key={tech}
+                key={t}
                 className="px-4 py-2 bg-secondary rounded-lg text-sm text-foreground font-medium"
               >
-                {tech}
+                {t}
               </span>
             ))}
           </div>
 
           {/* Links */}
           <div className="flex gap-4 mb-16">
-            {project.link !== '#' && (
+            {project.link && project.link !== '#' && (
               <a
                 href={project.link}
                 target="_blank"
@@ -190,9 +101,9 @@ const ProjectDetail = () => {
                 View Live
               </a>
             )}
-            {details.github && (
+            {project.github && (
               <a
-                href={details.github}
+                href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-lg font-medium hover:bg-card transition-colors"
@@ -207,52 +118,92 @@ const ProjectDetail = () => {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-12">
-              {/* Description */}
-              <div>
-                <h2 className="text-2xl font-display font-semibold mb-6">Overview</h2>
-                <div className="space-y-4">
-                  {details.fullDescription.map((para, idx) => (
-                    <p key={idx} className="text-muted-foreground leading-relaxed">
-                      {para}
-                    </p>
-                  ))}
+              {/* Full Description */}
+              {fullDescription.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-display font-semibold mb-6">Overview</h2>
+                  <div className="space-y-4">
+                    {fullDescription.map((para, idx) => (
+                      <p key={idx} className="text-muted-foreground leading-relaxed">
+                        {para}
+                      </p>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Features */}
-              <div>
-                <h2 className="text-2xl font-display font-semibold mb-6">Key Features</h2>
-                <ul className="space-y-3">
-                  {details.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {features.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-display font-semibold mb-6">Key Features</h2>
+                  <ul className="space-y-3">
+                    {features.map((feature, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5 flex-shrink-0" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
               {/* Challenges */}
-              <div>
-                <h2 className="text-2xl font-display font-semibold mb-6">Challenges & Solutions</h2>
-                <ul className="space-y-3">
-                  {details.challenges.map((challenge, idx) => (
-                    <li key={idx} className="flex items-start gap-3">
-                      <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full mt-2.5 flex-shrink-0" />
-                      <span className="text-muted-foreground">{challenge}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {challenges.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-display font-semibold mb-6">Challenges & Solutions</h2>
+                  <ul className="space-y-3">
+                    {challenges.map((challenge, idx) => (
+                      <li key={idx} className="flex items-start gap-3">
+                        <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full mt-2.5 flex-shrink-0" />
+                        <span className="text-muted-foreground">{challenge}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+              {/* Gallery */}
+              {gallery.length > 0 && (
+                <div>
+                  <h2 className="text-2xl font-display font-semibold mb-6">Gallery</h2>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    {gallery.map((item, idx) => (
+                      <div key={idx} className="rounded-xl overflow-hidden border border-border">
+                        <img src={item.image} alt={item.caption || `${project.title} screenshot ${idx + 1}`} className="w-full h-auto" />
+                        {item.caption && (
+                          <p className="px-4 py-3 text-sm text-muted-foreground bg-card">{item.caption}</p>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Testimonial */}
+              {project.testimonial?.quote && (
+                <div className="border-l-4 border-primary pl-6 py-4">
+                  <blockquote className="text-lg text-muted-foreground italic mb-3">
+                    "{project.testimonial.quote}"
+                  </blockquote>
+                  <div>
+                    <p className="font-medium text-foreground">{project.testimonial.author}</p>
+                    {project.testimonial.role && (
+                      <p className="text-sm text-muted-foreground">{project.testimonial.role}</p>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar */}
             <div className="space-y-8">
               {/* Outcome Card */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-lg font-display font-semibold mb-4">Outcome</h3>
-                <p className="text-muted-foreground leading-relaxed">{details.outcome}</p>
-              </div>
+              {project.outcome && (
+                <div className="bg-card border border-border rounded-xl p-6">
+                  <h3 className="text-lg font-display font-semibold mb-4">Outcome</h3>
+                  <p className="text-muted-foreground leading-relaxed">{project.outcome}</p>
+                </div>
+              )}
 
               {/* Quick Info */}
               <div className="bg-card border border-border rounded-xl p-6">
@@ -262,9 +213,27 @@ const ProjectDetail = () => {
                     <span className="text-sm text-muted-foreground">Role</span>
                     <p className="font-medium">{project.role}</p>
                   </div>
+                  {project.category && (
+                    <div>
+                      <span className="text-sm text-muted-foreground">Category</span>
+                      <p className="font-medium">{project.category}</p>
+                    </div>
+                  )}
+                  {project.duration && (
+                    <div>
+                      <span className="text-sm text-muted-foreground">Duration</span>
+                      <p className="font-medium">{project.duration}</p>
+                    </div>
+                  )}
+                  {project.client && (
+                    <div>
+                      <span className="text-sm text-muted-foreground">Client</span>
+                      <p className="font-medium">{project.client}</p>
+                    </div>
+                  )}
                   <div>
                     <span className="text-sm text-muted-foreground">Technologies</span>
-                    <p className="font-medium">{project.tech.join(', ')}</p>
+                    <p className="font-medium">{tech.join(', ')}</p>
                   </div>
                 </div>
               </div>

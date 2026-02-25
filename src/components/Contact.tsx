@@ -1,7 +1,7 @@
-import { Mail, Linkedin, Github, Instagram, ExternalLink, Twitter } from 'lucide-react';
+import { Mail, Linkedin, Github, Instagram, ExternalLink, Twitter, Globe, Youtube } from 'lucide-react';
 import { getContact } from '@/lib/content';
 
-const iconMap: Record<string, any> = { Mail, Linkedin, Github, Instagram, ExternalLink, Twitter };
+const iconMap: Record<string, any> = { Mail, Linkedin, Github, Instagram, ExternalLink, Twitter, Globe, Youtube };
 
 const contact = getContact();
 const contactLinks = (contact.links as Array<{ name: string; value: string; href: string; icon: string }>) || [];
@@ -50,7 +50,7 @@ const Contact = () => {
             className="btn-primary inline-flex"
           >
             <Mail className="w-5 h-5" />
-            Send me an email
+            {contact.cta_text || 'Send me an email'}
           </a>
         </div>
       </div>
