@@ -1,5 +1,5 @@
 ---
-tagline: CSE · Cloud Computing · SnapWea
+tagline: CSE · Cloud Computing · SnapWeaz
 name: Ansh Hedau
 subtitle: I design and build products that merge aesthetics with innovation.
 cta_primary_text: View My Work
