@@ -7,103 +7,19 @@
     <title>Content Manager | Ansh Hedau</title>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     <style>
-      /* Custom CMS Styling - Dark theme matching portfolio */
-      :root {
-        --cms-primary: #b8ff00;
-        --cms-bg: #0a0a0a;
-        --cms-surface: #141414;
-        --cms-border: #262626;
-        --cms-text: #ffffff;
-        --cms-muted: #999999;
-      }
-
-      /* Global dark override */
-      body {
-        background: var(--cms-bg) !important;
-      }
-
-      /* Top bar */
-      [class*="AppHeader"] {
-        background: var(--cms-surface) !important;
-        border-bottom: 1px solid var(--cms-border) !important;
-      }
-
-      /* Sidebar */
-      [class*="Sidebar"] {
-        background: var(--cms-surface) !important;
-        border-right: 1px solid var(--cms-border) !important;
+      /* Minor CMS UI polish - keep default Decap/Netlify CMS theme */
+      [class*="ControlPaneContainer"] input:focus,
+      [class*="ControlPaneContainer"] textarea:focus {
+        border-color: #2196f3 !important;
       }
 
       /* Better mobile layout */
       @media (max-width: 768px) {
-        [class*="SplitPane"] {
-          flex-direction: column !important;
-        }
-        [class*="Sidebar"] {
-          width: 100% !important;
-          max-width: 100% !important;
-          border-right: none !important;
-          border-bottom: 1px solid var(--cms-border) !important;
-        }
-        [class*="EditorContainer"],
-        [class*="ViewStyleControl"] {
-          width: 100% !important;
-        }
-        /* Make editor fields larger on mobile */
         [class*="ControlPaneContainer"] input,
         [class*="ControlPaneContainer"] textarea,
         [class*="ControlPaneContainer"] select {
-          font-size: 16px !important; /* Prevents zoom on iOS */
-          padding: 12px !important;
+          font-size: 16px !important;
         }
-      }
-
-      /* Publish button accent */
-      [class*="PublishButton"],
-      [class*="ToolbarButton"] {
-        border-radius: 8px !important;
-      }
-
-      /* Better spacing for list widgets */
-      [class*="ListControl"] {
-        gap: 8px;
-      }
-
-      /* Cards for collection entries */
-      [class*="ListCard"],
-      [class*="EntryCard"] {
-        border-radius: 12px !important;
-        border: 1px solid var(--cms-border) !important;
-        transition: border-color 0.2s !important;
-      }
-
-      [class*="ListCard"]:hover,
-      [class*="EntryCard"]:hover {
-        border-color: var(--cms-primary) !important;
-      }
-
-      /* Smoother inputs */
-      [class*="ControlPaneContainer"] input,
-      [class*="ControlPaneContainer"] textarea,
-      [class*="ControlPaneContainer"] select {
-        border-radius: 8px !important;
-        transition: border-color 0.2s !important;
-      }
-
-      [class*="ControlPaneContainer"] input:focus,
-      [class*="ControlPaneContainer"] textarea:focus {
-        border-color: var(--cms-primary) !important;
-        box-shadow: 0 0 0 2px rgba(184, 255, 0, 0.15) !important;
-      }
-
-      /* Better textarea sizing */
-      [class*="ControlPaneContainer"] textarea {
-        min-height: 120px !important;
-      }
-
-      /* Collection description text */
-      [class*="CollectionTop"] p {
-        opacity: 0.7;
       }
     </style>
   </head>
