@@ -1,7 +1,9 @@
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
+import AnimatedSection from '@/components/AnimatedSection';
 import { getProjectBySlug } from '@/lib/content';
 
 const ProjectDetail = () => {
@@ -10,15 +12,13 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background noise-overlay">
         <Navigation />
         <main className="pt-32 pb-20">
           <div className="section-container text-center">
-            <h1 className="text-4xl font-display font-bold mb-4">Project Not Found</h1>
-            <p className="text-muted-foreground mb-8">The project you're looking for doesn't exist.</p>
-            <Link to="/#projects" className="text-primary hover:underline">
-              ← Back to Projects
-            </Link>
+            <h1 className="text-4xl font-bold mb-4">Project Not Found</h1>
+            <p className="mb-8" style={{ color: 'hsl(var(--muted-foreground))' }}>The project you're looking for doesn't exist.</p>
+            <Link to="/#projects" className="text-primary hover:underline">← Back to Projects</Link>
           </div>
         </main>
         <Footer />
@@ -33,210 +33,196 @@ const ProjectDetail = () => {
   const gallery = (project.gallery as Array<{ image: string; caption?: string }>) || [];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background noise-overlay">
       <Navigation />
-      <main className="pt-32 pb-20">
-        <div className="section-container">
+      <main className="pt-32 pb-20 relative">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/[0.04] rounded-full blur-[150px] pointer-events-none" />
+
+        <div className="section-container relative">
           {/* Back Link */}
-          <Link 
-            to="/#projects" 
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors mb-12"
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Projects
-          </Link>
+            <Link to="/#projects" className="inline-flex items-center gap-2 hover:text-primary transition-colors mb-12" style={{ color: 'hsl(var(--muted-foreground))' }}>
+              <ArrowLeft className="w-4 h-4" />
+              Back to Projects
+            </Link>
+          </motion.div>
 
           {/* Cover Image */}
           {project.cover_image && (
-            <div className="mb-12 rounded-2xl overflow-hidden border border-border">
-              <img 
-                src={project.cover_image} 
-                alt={project.title} 
-                className="w-full h-auto object-cover max-h-[500px]"
-              />
-            </div>
+            <AnimatedSection>
+              <div className="mb-12 glass-card p-2 overflow-hidden">
+                <img src={project.cover_image} alt={project.title} className="w-full h-auto object-cover max-h-[500px] rounded-lg" />
+              </div>
+            </AnimatedSection>
           )}
 
           {/* Header */}
-          <div className="mb-12">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span className="text-primary text-sm font-medium uppercase tracking-wider">{project.role}</span>
-              {project.category && (
-                <span className="text-xs px-2.5 py-1 bg-secondary rounded-md text-muted-foreground">
-                  {project.category}
-                </span>
-              )}
-              {project.featured && (
-                <span className="text-xs px-2.5 py-1 bg-primary/10 text-primary rounded-md font-medium">
-                  Featured
-                </span>
-              )}
+          <AnimatedSection delay={0.1}>
+            <div className="mb-12">
+              <div className="flex flex-wrap items-center gap-3 mb-4">
+                <span className="section-label">{project.role}</span>
+                {project.category && (
+                  <span className="skill-tag text-xs">{project.category}</span>
+                )}
+                {project.featured && (
+                  <span className="section-label">Featured</span>
+                )}
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold mb-6">{project.title}</h1>
+              <p className="text-xl max-w-3xl" style={{ color: 'hsl(var(--muted-foreground))' }}>{project.description}</p>
             </div>
-            <h1 className="text-4xl md:text-5xl font-display font-bold mb-6">{project.title}</h1>
-            <p className="text-xl text-muted-foreground max-w-3xl">{project.description}</p>
-          </div>
+          </AnimatedSection>
 
           {/* Tech Stack */}
-          <div className="flex flex-wrap gap-3 mb-12">
-            {tech.map((t) => (
-              <span
-                key={t}
-                className="px-4 py-2 bg-secondary rounded-lg text-sm text-foreground font-medium"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          <AnimatedSection delay={0.15}>
+            <div className="flex flex-wrap gap-3 mb-12">
+              {tech.map((t) => (
+                <span key={t} className="skill-tag font-medium">{t}</span>
+              ))}
+            </div>
+          </AnimatedSection>
 
           {/* Links */}
-          <div className="flex gap-4 mb-16">
-            {project.link && project.link !== '#' && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg font-medium hover:opacity-90 transition-opacity"
-              >
-                <ExternalLink className="w-4 h-4" />
-                View Live
-              </a>
-            )}
-            {project.github && (
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-border rounded-lg font-medium hover:bg-card transition-colors"
-              >
-                <Github className="w-4 h-4" />
-                View Code
-              </a>
-            )}
-          </div>
+          <AnimatedSection delay={0.2}>
+            <div className="flex gap-4 mb-16">
+              {project.link && project.link !== '#' && (
+                <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                  <ExternalLink className="w-4 h-4" />
+                  View Live
+                </a>
+              )}
+              {project.github && (
+                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-outline">
+                  <Github className="w-4 h-4" />
+                  View Code
+                </a>
+              )}
+            </div>
+          </AnimatedSection>
 
           {/* Content Grid */}
           <div className="grid lg:grid-cols-3 gap-12">
-            {/* Main Content */}
             <div className="lg:col-span-2 space-y-12">
-              {/* Full Description */}
               {fullDescription.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-display font-semibold mb-6">Overview</h2>
+                <AnimatedSection>
+                  <h2 className="text-2xl font-semibold mb-6">Overview</h2>
                   <div className="space-y-4">
                     {fullDescription.map((para, idx) => (
-                      <p key={idx} className="text-muted-foreground leading-relaxed">
-                        {para}
-                      </p>
+                      <p key={idx} className="leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>{para}</p>
                     ))}
                   </div>
-                </div>
+                </AnimatedSection>
               )}
 
-              {/* Features */}
               {features.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-display font-semibold mb-6">Key Features</h2>
+                <AnimatedSection>
+                  <h2 className="text-2xl font-semibold mb-6">Key Features</h2>
                   <ul className="space-y-3">
                     {features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2.5 flex-shrink-0" />
-                        <span className="text-muted-foreground">{feature}</span>
+                      <li key={idx} className="flex items-start gap-3 glass-card px-4 py-3">
+                        <span className="w-2 h-2 rounded-full mt-2 flex-shrink-0" style={{ background: 'var(--gradient-primary)' }} />
+                        <span style={{ color: 'hsl(var(--muted-foreground))' }}>{feature}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </AnimatedSection>
               )}
 
-              {/* Challenges */}
               {challenges.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-display font-semibold mb-6">Challenges & Solutions</h2>
+                <AnimatedSection>
+                  <h2 className="text-2xl font-semibold mb-6">Challenges & Solutions</h2>
                   <ul className="space-y-3">
                     {challenges.map((challenge, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <span className="w-1.5 h-1.5 bg-muted-foreground rounded-full mt-2.5 flex-shrink-0" />
-                        <span className="text-muted-foreground">{challenge}</span>
+                        <span className="w-1.5 h-1.5 rounded-full mt-2.5 flex-shrink-0" style={{ background: 'hsl(var(--muted-foreground))' }} />
+                        <span style={{ color: 'hsl(var(--muted-foreground))' }}>{challenge}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </AnimatedSection>
               )}
 
-              {/* Gallery */}
               {gallery.length > 0 && (
-                <div>
-                  <h2 className="text-2xl font-display font-semibold mb-6">Gallery</h2>
+                <AnimatedSection>
+                  <h2 className="text-2xl font-semibold mb-6">Gallery</h2>
                   <div className="grid sm:grid-cols-2 gap-4">
                     {gallery.map((item, idx) => (
-                      <div key={idx} className="rounded-xl overflow-hidden border border-border">
-                        <img src={item.image} alt={item.caption || `${project.title} screenshot ${idx + 1}`} className="w-full h-auto" />
+                      <div key={idx} className="glass-card p-2 overflow-hidden">
+                        <img src={item.image} alt={item.caption || `${project.title} screenshot ${idx + 1}`} className="w-full h-auto rounded-lg" />
                         {item.caption && (
-                          <p className="px-4 py-3 text-sm text-muted-foreground bg-card">{item.caption}</p>
+                          <p className="px-3 py-2 text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>{item.caption}</p>
                         )}
                       </div>
                     ))}
                   </div>
-                </div>
+                </AnimatedSection>
               )}
 
-              {/* Testimonial */}
               {project.testimonial?.quote && (
-                <div className="border-l-4 border-primary pl-6 py-4">
-                  <blockquote className="text-lg text-muted-foreground italic mb-3">
-                    "{project.testimonial.quote}"
-                  </blockquote>
-                  <div>
-                    <p className="font-medium text-foreground">{project.testimonial.author}</p>
-                    {project.testimonial.role && (
-                      <p className="text-sm text-muted-foreground">{project.testimonial.role}</p>
-                    )}
+                <AnimatedSection>
+                  <div className="glass-card p-6 border-l-4" style={{ borderLeftColor: 'hsl(var(--primary))' }}>
+                    <blockquote className="text-lg italic mb-3" style={{ color: 'hsl(var(--muted-foreground))' }}>
+                      "{project.testimonial.quote}"
+                    </blockquote>
+                    <div>
+                      <p className="font-medium">{project.testimonial.author}</p>
+                      {project.testimonial.role && (
+                        <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>{project.testimonial.role}</p>
+                      )}
+                    </div>
                   </div>
-                </div>
+                </AnimatedSection>
               )}
             </div>
 
             {/* Sidebar */}
-            <div className="space-y-8">
-              {/* Outcome Card */}
+            <div className="space-y-6">
               {project.outcome && (
-                <div className="bg-card border border-border rounded-xl p-6">
-                  <h3 className="text-lg font-display font-semibold mb-4">Outcome</h3>
-                  <p className="text-muted-foreground leading-relaxed">{project.outcome}</p>
-                </div>
+                <AnimatedSection>
+                  <div className="glass-card p-6">
+                    <h3 className="text-lg font-semibold mb-4">Outcome</h3>
+                    <p className="leading-relaxed" style={{ color: 'hsl(var(--muted-foreground))' }}>{project.outcome}</p>
+                  </div>
+                </AnimatedSection>
               )}
 
-              {/* Quick Info */}
-              <div className="bg-card border border-border rounded-xl p-6">
-                <h3 className="text-lg font-display font-semibold mb-4">Project Info</h3>
-                <div className="space-y-4">
-                  <div>
-                    <span className="text-sm text-muted-foreground">Role</span>
-                    <p className="font-medium">{project.role}</p>
-                  </div>
-                  {project.category && (
+              <AnimatedSection delay={0.1}>
+                <div className="glass-card p-6">
+                  <h3 className="text-lg font-semibold mb-4">Project Info</h3>
+                  <div className="space-y-4">
                     <div>
-                      <span className="text-sm text-muted-foreground">Category</span>
-                      <p className="font-medium">{project.category}</p>
+                      <span className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Role</span>
+                      <p className="font-medium">{project.role}</p>
                     </div>
-                  )}
-                  {project.duration && (
+                    {project.category && (
+                      <div>
+                        <span className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Category</span>
+                        <p className="font-medium">{project.category}</p>
+                      </div>
+                    )}
+                    {project.duration && (
+                      <div>
+                        <span className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Duration</span>
+                        <p className="font-medium">{project.duration}</p>
+                      </div>
+                    )}
+                    {project.client && (
+                      <div>
+                        <span className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Client</span>
+                        <p className="font-medium">{project.client}</p>
+                      </div>
+                    )}
                     <div>
-                      <span className="text-sm text-muted-foreground">Duration</span>
-                      <p className="font-medium">{project.duration}</p>
+                      <span className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>Technologies</span>
+                      <p className="font-medium">{tech.join(', ')}</p>
                     </div>
-                  )}
-                  {project.client && (
-                    <div>
-                      <span className="text-sm text-muted-foreground">Client</span>
-                      <p className="font-medium">{project.client}</p>
-                    </div>
-                  )}
-                  <div>
-                    <span className="text-sm text-muted-foreground">Technologies</span>
-                    <p className="font-medium">{tech.join(', ')}</p>
                   </div>
                 </div>
-              </div>
+              </AnimatedSection>
             </div>
           </div>
         </div>
