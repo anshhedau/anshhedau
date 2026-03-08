@@ -4,26 +4,20 @@ const footer = getFooter();
 
 const Footer = () => {
   return (
-    <footer className="py-8 border-t border-border">
+    <footer className="py-10 border-t border-border relative">
       <div className="section-container">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          {/* Brand */}
           <div className="flex items-center gap-2">
-            <span className="font-display font-bold text-foreground">
-              {footer.brand || 'Ansh'}<span className="text-primary">.</span>
+            <span className="font-bold text-lg tracking-tight">
+              {footer.brand || 'Ansh'}<span className="text-gradient">.</span>
             </span>
           </div>
 
-          {/* Copyright */}
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>
             {footer.copyright || '© Ansh Hedau. Designed with precision and care.'}
           </p>
 
-          {/* Back to top */}
-          <a
-            href="#"
-            className="text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
+          <a href="#" className="text-sm hover:text-primary transition-colors" style={{ color: 'hsl(var(--muted-foreground))' }}>
             Back to top ↑
           </a>
         </div>
