@@ -31,12 +31,12 @@ const Navigation = () => {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-      className="fixed top-0 left-0 right-0 z-50"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled ? 'glass-nav' : ''
+      }`}
     >
       <div className="section-container">
-        <div className={`flex items-center justify-between h-16 transition-all duration-500 ${
-          isScrolled ? 'glass-nav' : ''
-        }`}>
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
             {logoText}<span className="text-gradient">.</span>
