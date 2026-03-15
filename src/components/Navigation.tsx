@@ -34,10 +34,8 @@ const Navigation = () => {
       className="fixed top-0 left-0 right-0 z-50"
     >
       <div className="section-container">
-        <div className={`flex items-center justify-between transition-all duration-500 ${
-          isScrolled 
-            ? 'h-16 mt-3 px-6 glass-nav rounded-2xl mx-auto max-w-4xl' 
-            : 'h-20 px-0'
+        <div className={`flex items-center justify-between h-16 transition-all duration-500 ${
+          isScrolled ? 'glass-nav' : ''
         }`}>
           {/* Logo */}
           <a href="#" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
