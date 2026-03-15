@@ -18,11 +18,10 @@ const Hero = () => {
       <div className="gradient-orb w-[400px] h-[400px] bg-[hsl(260_80%_60%/0.08)] bottom-[10%] right-[10%]" style={{ animationDelay: '-7s' }} />
       <div className="gradient-orb w-[300px] h-[300px] bg-[hsl(200_80%_50%/0.06)] top-[60%] left-[60%]" style={{ animationDelay: '-14s' }} />
 
-      {/* Grid pattern overlay */}
-      <div className="absolute inset-0 opacity-[0.03]" style={{
-        backgroundImage: 'linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)',
-        backgroundSize: '80px 80px'
-      }} />
+      {/* Interactive 3D particle network */}
+      <Suspense fallback={null}>
+        <HeroBackground3D />
+      </Suspense>
 
       <div className="text-center max-w-5xl mx-auto relative z-10">
         {/* Tagline pill */}
