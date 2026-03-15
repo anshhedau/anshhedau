@@ -1,6 +1,9 @@
 import { ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { getHero } from '@/lib/content';
+import { lazy, Suspense } from 'react';
+
+const HeroBackground3D = lazy(() => import('./HeroBackground3D'));
 
 const hero = getHero();
 
