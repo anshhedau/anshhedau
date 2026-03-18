@@ -19,11 +19,11 @@ full_description:
     informed decisions about their future. It focuses on simplicity, clarity,
     and accessibility through a clean user interface and intuitive navigation.
 features:
-  - • Structured exploration of academic streams
-  - • Clean and user-friendly interface
-  - • Informational sections for career guidance
-  - • Responsive design for all devices
-  - • Easy navigation across different domains
+  - Structured exploration of academic streams
+  - Clean and user-friendly interface
+  - Informational sections for career guidance
+  - Responsive design for all devices
+  - Easy navigation across different domains
 outcome: Developed a functional and user-friendly platform that simplifies
   career decision-making for students. The project demonstrates strong frontend
   development and product design skills with a focus on real-world usability.
