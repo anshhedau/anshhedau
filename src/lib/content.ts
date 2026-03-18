@@ -57,7 +57,7 @@ function parseYaml(yaml: string): Record<string, any> {
     }
 
     // Key-value pair
-    const kv = line.match(/^(\w+):\s*(.+)$/);
+    const kv = line.match(/^(\w[\w_]+):\s*(.+)$/);
     if (kv) {
       // Flush previous list
       if (currentList !== null) {
@@ -70,7 +70,27 @@ function parseYaml(yaml: string): Record<string, any> {
       }
 
       const key = kv[1];
-      let value: any = kv[2].replace(/^"|"$/g, '');
+      let value: any = kv[2].replace(/^"|"$/g, '').trim();
+
+      // Handle YAML folded block scalar (>)
+      if (value === '>' || value === '|') {
+        // Collect indented continuation lines
+        let block = '';
+        while (i + 1 < lines.length) {
+          const nextLine = lines[i + 1];
+          if (nextLine.match(/^  \S/) || nextLine.match(/^  \s+\S/)) {
+            block += (block ? ' ' : '') + nextLine.trim();
+            i++;
+          } else if (nextLine.trim() === '') {
+            i++;
+          } else {
+            break;
+          }
+        }
+        result[key] = block;
+        currentKey = key;
+        continue;
+      }
 
       // Boolean
       if (value === 'true') value = true;
