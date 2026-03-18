@@ -11,6 +11,11 @@ link: https://stream-ly.netlify.app/
 order: 1
 featured: false
 hasDetailPage: true
+tech:
+  - React
+  - HTML
+  - CSS
+  - AWS
 full_description:
   - >
     Streamly is a web-based platform designed to help students explore different
