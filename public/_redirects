@@ -1,7 +1,7 @@
 # Redirect all HTTP to HTTPS
-http://anshhedau.snapweaz.in/* https://anshhedau.snapweaz.in/:splat 301!
-http://www.anshhedau.snapweaz.in/* https://anshhedau.snapweaz.in/:splat 301!
-https://www.anshhedau.snapweaz.in/* https://anshhedau.snapweaz.in/:splat 301!
+http://anshhedau.snapweaz.com/* https://anshhedau.snapweaz.com/:splat 301!
+http://www.anshhedau.snapweaz.com/* https://anshhedau.snapweaz.com/:splat 301!
+https://www.anshhedau.snapweaz.com/* https://anshhedau.snapweaz.com/:splat 301!
 
 # Handle client-side routing - serve index.html for all routes
 /*    /index.html   200
