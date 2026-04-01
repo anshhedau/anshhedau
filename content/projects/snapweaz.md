@@ -5,7 +5,7 @@ description: "Design and Tech Studio building digital products and experiences. 
 cover_image: ""
 role: "Founder & Lead"
 category: "Full Stack"
-link: "https://www.snapweaz.in"
+link: "https://www.snapweaz.com"
 github: "https://github.com/anshhedau1"
 duration: ""
 client: ""
