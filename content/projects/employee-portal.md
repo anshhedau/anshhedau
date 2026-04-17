@@ -38,6 +38,9 @@ challenges:
   - Implementing efficient data management
 outcome: Delivered a functional employee management system that streamlines
   internal operations and improves team coordination at SnapWeaz.
-gallery: []
-files: []
+gallery:
+  - image: /uploads/cropped_circle_image.png
+files:
+  - cover: /uploads/favicon.png
+    file: /uploads/favicon.png
 ---
