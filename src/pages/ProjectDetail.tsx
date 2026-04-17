@@ -4,6 +4,8 @@ import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import AnimatedSection from '@/components/AnimatedSection';
+import LivePreview from '@/components/LivePreview';
+import ProjectFiles from '@/components/ProjectFiles';
 import { getProjectBySlug } from '@/lib/content';
 
 const ProjectDetail = () => {
@@ -31,6 +33,7 @@ const ProjectDetail = () => {
   const challenges = (project.challenges as string[]) || [];
   const tech = (project.tech as string[]) || [];
   const gallery = (project.gallery as Array<{ image: string; caption?: string }>) || [];
+  const files = (project.files as Array<{ cover: string; file: string; title?: string; caption?: string }>) || [];
 
   return (
     <div className="min-h-screen bg-background noise-overlay">
@@ -51,14 +54,12 @@ const ProjectDetail = () => {
             </Link>
           </motion.div>
 
-          {/* Cover Image */}
-          {project.cover_image && (
-            <AnimatedSection>
-              <div className="mb-12 glass-card p-2 overflow-hidden">
-                <img src={project.cover_image} alt={project.title} className="w-full h-auto object-cover max-h-[500px] rounded-lg" />
-              </div>
-            </AnimatedSection>
-          )}
+          {/* Live Preview (replaces static cover image) */}
+          <AnimatedSection>
+            <div className="mb-12">
+              <LivePreview url={project.link as string | undefined} title={project.title as string} />
+            </div>
+          </AnimatedSection>
 
           {/* Header */}
           <AnimatedSection delay={0.1}>
@@ -145,6 +146,8 @@ const ProjectDetail = () => {
                   </ul>
                 </AnimatedSection>
               )}
+
+              <ProjectFiles files={files} projectTitle={project.title as string} />
 
               {gallery.length > 0 && (
                 <AnimatedSection>
