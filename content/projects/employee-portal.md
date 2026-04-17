@@ -10,7 +10,7 @@ link: https://employee-database-ansh-hedau-snapweaz.netlify.app/
 github: https://github.com/anshhedau1
 duration: ""
 client: SnapWeaz
-order: 5
+order: 4
 featured: false
 hasDetailPage: true
 tech:
