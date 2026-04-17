@@ -54,14 +54,12 @@ const ProjectDetail = () => {
             </Link>
           </motion.div>
 
-          {/* Cover Image */}
-          {project.cover_image && (
-            <AnimatedSection>
-              <div className="mb-12 glass-card p-2 overflow-hidden">
-                <img src={project.cover_image} alt={project.title} className="w-full h-auto object-cover max-h-[500px] rounded-lg" />
-              </div>
-            </AnimatedSection>
-          )}
+          {/* Live Preview (replaces static cover image) */}
+          <AnimatedSection>
+            <div className="mb-12">
+              <LivePreview url={project.link as string | undefined} title={project.title as string} />
+            </div>
+          </AnimatedSection>
 
           {/* Header */}
           <AnimatedSection delay={0.1}>
