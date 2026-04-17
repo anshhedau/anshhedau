@@ -179,13 +179,23 @@ collections:
         field: { name: "challenge", label: "Challenge", widget: "string" }
       - { name: "outcome", label: "Outcome / Impact", widget: "text", required: false, hint: "What was the result? Metrics, achievements, etc." }
       - name: "gallery"
-        label: "Project Gallery"
+        label: "Project Gallery (Images)"
         widget: "list"
         required: false
-        hint: "Screenshots or images of the project"
+        hint: "Screenshots / images. If you add files below instead, leave this empty — files section will replace gallery in the UI."
         fields:
           - { name: "image", label: "Image", widget: "image" }
           - { name: "caption", label: "Caption", widget: "string", required: false }
+      - name: "files"
+        label: "Project Files (with cover)"
+        widget: "list"
+        required: false
+        hint: "Upload any file (PDF, doc, video, zip…). Each file needs a cover image shown in the UI. Click opens the file in a new tab."
+        fields:
+          - { name: "cover", label: "Cover Image", widget: "image", hint: "Image shown in the UI (16:9 looks best)" }
+          - { name: "file", label: "File", widget: "file", hint: "The actual file users open / download" }
+          - { name: "title", label: "Title", widget: "string", required: false }
+          - { name: "caption", label: "Caption / Description", widget: "string", required: false }
       - name: "testimonial"
         label: "Client Testimonial"
         widget: "object"
