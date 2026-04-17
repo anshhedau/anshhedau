@@ -146,6 +146,8 @@ const ProjectDetail = () => {
                 </AnimatedSection>
               )}
 
+              <ProjectFiles files={files} projectTitle={project.title as string} />
+
               {gallery.length > 0 && (
                 <AnimatedSection>
                   <h2 className="text-2xl font-semibold mb-6">Gallery</h2>
