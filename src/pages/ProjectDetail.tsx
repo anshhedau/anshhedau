@@ -1,5 +1,5 @@
 import { useParams, Link } from 'react-router-dom';
-import { ArrowLeft, ExternalLink, Github } from 'lucide-react';
+import { ArrowLeft, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
@@ -54,12 +54,6 @@ const ProjectDetail = () => {
             </Link>
           </motion.div>
 
-          {/* Live Preview (replaces static cover image) */}
-          <AnimatedSection>
-            <div className="mb-12">
-              <LivePreview url={project.link as string | undefined} title={project.title as string} />
-            </div>
-          </AnimatedSection>
 
           {/* Header */}
           <AnimatedSection delay={0.1}>
@@ -87,20 +81,26 @@ const ProjectDetail = () => {
             </div>
           </AnimatedSection>
 
-          {/* Links */}
+          {/* Live preview cover + CTA (replaces buttons row) */}
           <AnimatedSection delay={0.2}>
-            <div className="flex gap-4 mb-16">
-              {project.link && project.link !== '#' && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer" className="btn-primary">
-                  <ExternalLink className="w-4 h-4" />
-                  View Live
-                </a>
-              )}
+            <div className="mb-16 space-y-4">
+              <LivePreview
+                url={project.link as string | undefined}
+                cover={project.cover_image as string | undefined}
+                title={project.title as string}
+              />
               {project.github && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-outline">
-                  <Github className="w-4 h-4" />
-                  View Code
-                </a>
+                <div>
+                  <a
+                    href={project.github as string}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-outline"
+                  >
+                    <Github className="w-4 h-4" />
+                    View Code
+                  </a>
+                </div>
               )}
             </div>
           </AnimatedSection>
