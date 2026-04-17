@@ -94,6 +94,12 @@
     font-family: 'Inter', system-ui, sans-serif;
     overflow-x: hidden;
     max-width: 100vw;
+    /* Banana cursor 🍌 — lightweight inline SVG, no extra HTTP request */
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 32 32'><text x='0' y='26' font-size='26'>🍌</text></svg>") 4 4, auto;
+  }
+
+  a, button, [role='button'], .project-card, .skill-tag, summary, label, input[type='submit'] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'><text x='0' y='28' font-size='30'>🍌</text></svg>") 6 6, pointer;
   }
 
   html {
