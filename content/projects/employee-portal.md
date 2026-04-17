@@ -3,7 +3,7 @@ id: employee-portal
 title: SnapWeaz - Employee Portal
 description: Internal employee management portal for SnapWeaz with database
   integration, employee records, and administrative tools.
-cover_image: /uploads/proimg.png
+cover_image: ""
 role: Developer
 category: Web App
 link: https://employee-database-ansh-hedau-snapweaz.netlify.app/
@@ -38,9 +38,6 @@ challenges:
   - Implementing efficient data management
 outcome: Delivered a functional employee management system that streamlines
   internal operations and improves team coordination at SnapWeaz.
-gallery:
-  - image: /uploads/cropped_circle_image.png
-files:
-  - cover: /uploads/favicon.png
-    file: /uploads/favicon.png
+gallery: []
+files: []
 ---
