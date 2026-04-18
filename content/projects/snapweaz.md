@@ -41,8 +41,7 @@ challenges:
 outcome: Successfully delivered 15+ projects for clients across various
   industries, establishing SnapWeaz as a trusted partner for digital product
   development.
-gallery:
-  - image: /uploads/logo-1-.png
+gallery: []
 files:
   - cover: /uploads/logo-1-.png
     file: /uploads/logo-1-.png
