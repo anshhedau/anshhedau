@@ -147,7 +147,7 @@ const ProjectDetail = () => {
                 </AnimatedSection>
               )}
 
-              <ProjectFiles files={files} projectTitle={project.title as string} />
+              <ProjectFiles files={files} projectTitle={project.title as string} projectSlug={projectId as string} />
 
               {gallery.length > 0 && (
                 <AnimatedSection>
