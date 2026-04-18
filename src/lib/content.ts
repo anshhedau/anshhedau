@@ -1,155 +1,17 @@
-// Simple YAML frontmatter parser for content files
-// Parses --- delimited frontmatter from .md files loaded via import.meta.glob
+// Content loader: parses YAML frontmatter from markdown files
+// using js-yaml for full YAML spec compliance (handles |, |+, >, >-, nested lists, etc.)
+import yaml from 'js-yaml';
 
 function parseFrontmatter(raw: string): Record<string, any> {
-  const match = raw.match(/^---\n([\s\S]*?)\n---/);
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!match) return {};
-  return parseYaml(match[1]);
-}
-
-function parseYaml(yaml: string): Record<string, any> {
-  const result: Record<string, any> = {};
-  const lines = yaml.split('\n');
-  let currentKey = '';
-  let currentList: string[] | Record<string, string>[] | null = null;
-  let listItemObj: Record<string, string> | null = null;
-  let lastStringIndex = -1;
-
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
-
-    // Skip empty lines
-    if (line.trim() === '') continue;
-
-    // Continuation line for a simple list item (indented text that's not a new item or key)
-    if (currentList !== null && listItemObj === null && lastStringIndex >= 0) {
-      const continuation = line.match(/^    (.+)$/);
-      if (continuation && !line.match(/^    \w+:\s/) && !line.match(/^  -/)) {
-        (currentList as string[])[lastStringIndex] += ' ' + continuation[1].replace(/^"|"$/g, '').trim();
-        continue;
-      }
-    }
-
-    // Nested list item field (e.g., "    name: value")
-    const nestedField = line.match(/^    (\w+):\s*"?(.+?)"?\s*$/);
-    if (nestedField && listItemObj !== null) {
-      listItemObj[nestedField[1]] = nestedField[2].replace(/^"|"$/g, '');
-      continue;
-    }
-
-    // List item that is an object (e.g., "  - name: value")
-    const listObjItem = line.match(/^  - (\w+):\s*"?(.+?)"?\s*$/);
-    if (listObjItem && currentList !== null) {
-      if (listItemObj) {
-        (currentList as Record<string, string>[]).push(listItemObj);
-      }
-      listItemObj = { [listObjItem[1]]: listObjItem[2].replace(/^"|"$/g, '') };
-      lastStringIndex = -1;
-      continue;
-    }
-
-    // Simple list item (e.g., "  - value")
-    const listItem = line.match(/^  - "?(.+?)"?\s*$/);
-    if (listItem && currentList !== null && listItemObj === null) {
-      let itemValue = listItem[1].replace(/^"|"$/g, '').trim();
-      
-      // Handle folded block scalar in list item (  - >)
-      if (itemValue === '>' || itemValue === '|') {
-        let block = '';
-        while (i + 1 < lines.length) {
-          const nextLine = lines[i + 1];
-          if (nextLine.match(/^    \S/) || nextLine.match(/^    \s+\S/)) {
-            block += (block ? ' ' : '') + nextLine.trim();
-            i++;
-          } else if (nextLine.trim() === '') {
-            i++;
-          } else {
-            break;
-          }
-        }
-        itemValue = block;
-      }
-      
-      (currentList as string[]).push(itemValue);
-      lastStringIndex = (currentList as string[]).length - 1;
-      continue;
-    }
-
-    // Key-value pair
-    const kv = line.match(/^(\w[\w_]+):\s*(.+)$/);
-    if (kv) {
-      // Flush previous list
-      if (currentList !== null) {
-        if (listItemObj) {
-          (currentList as Record<string, string>[]).push(listItemObj);
-          listItemObj = null;
-        }
-        result[currentKey] = currentList;
-        currentList = null;
-      }
-
-      const key = kv[1];
-      let value: any = kv[2].replace(/^"|"$/g, '').trim();
-
-      // Handle YAML folded block scalar (>)
-      if (value === '>' || value === '|') {
-        // Collect indented continuation lines
-        let block = '';
-        while (i + 1 < lines.length) {
-          const nextLine = lines[i + 1];
-          if (nextLine.match(/^  \S/) || nextLine.match(/^  \s+\S/)) {
-            block += (block ? ' ' : '') + nextLine.trim();
-            i++;
-          } else if (nextLine.trim() === '') {
-            i++;
-          } else {
-            break;
-          }
-        }
-        result[key] = block;
-        currentKey = key;
-        continue;
-      }
-
-      // Boolean
-      if (value === 'true') value = true;
-      else if (value === 'false') value = false;
-      // Number
-      else if (/^\d+$/.test(value)) value = parseInt(value, 10);
-
-      result[key] = value;
-      currentKey = key;
-      continue;
-    }
-
-    // Key with no value (start of list)
-    const listStart = line.match(/^(\w+):$/);
-    if (listStart) {
-      // Flush previous list
-      if (currentList !== null) {
-        if (listItemObj) {
-          (currentList as Record<string, string>[]).push(listItemObj);
-          listItemObj = null;
-        }
-        result[currentKey] = currentList;
-      }
-      currentKey = listStart[1];
-      currentList = [];
-      listItemObj = null;
-      lastStringIndex = -1;
-      continue;
-    }
+  try {
+    const data = yaml.load(match[1]);
+    return (data && typeof data === 'object') ? (data as Record<string, any>) : {};
+  } catch (err) {
+    console.error('Failed to parse frontmatter:', err);
+    return {};
   }
-
-  // Flush final list
-  if (currentList !== null) {
-    if (listItemObj) {
-      (currentList as Record<string, string>[]).push(listItemObj);
-    }
-    result[currentKey] = currentList;
-  }
-
-  return result;
 }
 
 // ── Load single file collections ──
@@ -174,47 +36,19 @@ function loadCollection(files: Record<string, unknown>): Record<string, any>[] {
     .sort((a, b) => (a.order ?? 99) - (b.order ?? 99));
 }
 
-export function getSkills() {
-  return loadCollection(skillFiles);
-}
-
-export function getProjects() {
-  return loadCollection(projectFiles);
-}
-
-export function getExperience() {
-  return loadCollection(experienceFiles);
-}
+export function getSkills() { return loadCollection(skillFiles); }
+export function getProjects() { return loadCollection(projectFiles); }
+export function getExperience() { return loadCollection(experienceFiles); }
 
 export function getProjectBySlug(slug: string): Record<string, any> | null {
   const all = getProjects();
   return all.find((p) => p.id === slug) || null;
 }
 
-export function getHero() {
-  return getSingleContent('hero');
-}
-
-export function getAbout() {
-  return getSingleContent('about');
-}
-
-export function getContact() {
-  return getSingleContent('contact');
-}
-
-export function getFooter() {
-  return getSingleContent('footer');
-}
-
-export function getResume() {
-  return getSingleContent('resume');
-}
-
-export function getNavigation() {
-  return getSingleContent('navigation');
-}
-
-export function getSeo() {
-  return getSingleContent('seo');
-}
+export function getHero() { return getSingleContent('hero'); }
+export function getAbout() { return getSingleContent('about'); }
+export function getContact() { return getSingleContent('contact'); }
+export function getFooter() { return getSingleContent('footer'); }
+export function getResume() { return getSingleContent('resume'); }
+export function getNavigation() { return getSingleContent('navigation'); }
+export function getSeo() { return getSingleContent('seo'); }
