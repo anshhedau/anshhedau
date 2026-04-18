@@ -67,7 +67,7 @@ const ProjectDetail = () => {
                   <span className="section-label">Featured</span>
                 )}
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">{project.title}</h1>
+              <h1 className="text-4xl md:text-6xl mb-6" style={{ fontFamily: 'Fraunces, Syne, serif', fontWeight: 500, letterSpacing: '-0.03em' }}>{project.title}</h1>
               <p className="text-xl max-w-3xl" style={{ color: 'hsl(var(--muted-foreground))' }}>{project.description}</p>
             </div>
           </AnimatedSection>
@@ -147,7 +147,7 @@ const ProjectDetail = () => {
                 </AnimatedSection>
               )}
 
-              <ProjectFiles files={files} projectTitle={project.title as string} />
+              <ProjectFiles files={files} projectTitle={project.title as string} projectSlug={projectId as string} />
 
               {gallery.length > 0 && (
                 <AnimatedSection>

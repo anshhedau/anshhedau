@@ -33,10 +33,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 1, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-bold mb-8 leading-[1.05] tracking-tight"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] mb-8 leading-[1.02] tracking-tight"
+          style={{ fontFamily: 'Fraunces, Syne, serif', fontWeight: 500, letterSpacing: '-0.035em' }}
         >
           Hey, I'm{' '}
-          <span className="text-gradient">{hero.name || 'Ansh Hedau'}</span>
+          <span className="text-gradient" style={{ fontStyle: 'italic', fontWeight: 400 }}>{hero.name || 'Ansh Hedau'}</span>
         </motion.h1>
 
         {/* Subtitle */}
