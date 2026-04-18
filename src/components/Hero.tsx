@@ -131,8 +131,8 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground"
-        animate-bounce
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground animate-bounce"
+        aria-label="Scroll to about"
       >
         <ChevronDown size={24} />
       </motion.a>
