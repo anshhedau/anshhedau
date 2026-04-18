@@ -1,24 +1,26 @@
 import { getFooter } from '@/lib/content';
+import { ArrowUp } from 'lucide-react';
 
 const footer = getFooter();
 
 const Footer = () => {
   return (
-    <footer className="py-10 border-t border-border relative">
+    <footer className="py-12 border-t border-border relative">
       <div className="section-container">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-lg tracking-tight">
+        <div className="grid sm:grid-cols-3 items-center gap-6 text-center sm:text-left">
+          <div>
+            <span className="font-display font-bold text-2xl tracking-tight">
               {footer.brand || 'Ansh'}<span className="text-gradient">.</span>
             </span>
+            <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground mt-1">Designer · Developer · Builder</p>
           </div>
 
-          <p className="text-sm" style={{ color: 'hsl(var(--muted-foreground))' }}>
-            {footer.copyright || '© Ansh Hedau. Designed with precision and care.'}
+          <p className="text-sm text-muted-foreground sm:text-center">
+            {footer.copyright || '© Ansh Hedau · Crafted with care.'}
           </p>
 
-          <a href="#" className="text-sm hover:text-primary transition-colors" style={{ color: 'hsl(var(--muted-foreground))' }}>
-            Back to top ↑
+          <a href="#" className="inline-flex items-center gap-2 text-sm hover:text-primary-glow transition-colors text-muted-foreground sm:justify-self-end">
+            Back to top <ArrowUp className="w-4 h-4" />
           </a>
         </div>
       </div>
