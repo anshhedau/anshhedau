@@ -46,4 +46,6 @@ gallery:
 files:
   - cover: /uploads/logo-1-.png
     file: /uploads/logo-1-.png
+    title: iygyghbb
+    caption: khghybhjbhjbhb
 ---
