@@ -43,7 +43,7 @@ const Navigation = () => {
       <div className="section-container">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
+          <a href="/" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
             {logoText}<span className="text-gradient">.</span>
           </a>
 
