@@ -60,14 +60,11 @@ const Projects = () => {
 
       <div className="section-container relative">
         <AnimatedSection>
-          <div className="flex items-end justify-between flex-wrap gap-6 mb-12">
-            <div>
-              <span className="section-label mb-4 inline-block">Selected Work</span>
-              <h2 className="font-display text-4xl md:text-6xl font-semibold mt-4">
-                Things I've <span className="display-serif text-gradient">built</span>
-              </h2>
-            </div>
-            <p className="text-sm text-muted-foreground hidden sm:block">{projects.length} projects · auto-scrolling</p>
+          <div className="mb-12">
+            <span className="section-label mb-4 inline-block">Selected Work</span>
+            <h2 className="font-display text-4xl md:text-6xl font-semibold mt-4">
+              Things I've <span className="display-serif text-gradient">built</span>
+            </h2>
           </div>
         </AnimatedSection>
       </div>
