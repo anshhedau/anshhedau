@@ -47,4 +47,6 @@ files:
     file: /uploads/logo-1-.png
     title: iygyghbb
     caption: khghybhjbhjbhb
+  - cover: /uploads/favicon.png
+    file: /uploads/generate_new_thumbnail_202604191409.jpeg
 ---
