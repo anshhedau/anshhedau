@@ -44,6 +44,7 @@ const App = () => (
       <BrowserRouter>
         <ScrollToTop />
         <MagneticCursor />
+        <ImagePreloader />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>
