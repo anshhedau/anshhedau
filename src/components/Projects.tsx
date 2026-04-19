@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import { useRef, useState } from 'react';
 import { getProjects } from '@/lib/content';
 import AnimatedSection from './AnimatedSection';
 
@@ -11,7 +12,9 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
   return (
     <Link
       to={`/projects/${project.id}`}
-      className="project-card group block overflow-hidden shrink-0 w-[300px] sm:w-[360px] md:w-[420px]"
+      draggable={false}
+      onDragStart={(e) => e.preventDefault()}
+      className="project-card group block overflow-hidden shrink-0 w-[300px] sm:w-[360px] md:w-[420px] select-none"
     >
       {project.cover_image && (
         <div className="relative -mx-6 -mt-6 mb-5 aspect-[16/10] overflow-hidden">
@@ -19,7 +22,8 @@ const ProjectCard = ({ project, index }: { project: any; index: number }) => {
             src={project.cover_image}
             alt={project.title}
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            draggable={false}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 pointer-events-none"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-card via-card/30 to-transparent" />
           <span className="absolute top-4 left-4 font-display text-xs tracking-[0.3em] text-primary-glow">— {num}</span>
@@ -54,6 +58,50 @@ const Projects = () => {
   // Duplicate the list so the marquee loops seamlessly
   const loop = [...projects, ...projects];
 
+  const trackRef = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const [paused, setPaused] = useState(false);
+  const speed = 40; // px per second
+  const dragStartX = useRef(0);
+  const dragStartPointer = useRef(0);
+
+  // Continuously animates x leftward; wraps when half the track has passed
+  useAnimationFrame((_, delta) => {
+    if (paused) return;
+    const track = trackRef.current;
+    if (!track) return;
+    const half = track.scrollWidth / 2;
+    if (!half) return;
+    let next = x.get() - (speed * delta) / 1000;
+    if (next <= -half) next += half;
+    if (next > 0) next -= half;
+    x.set(next);
+  });
+
+  const handleDragStart = (_: any, info: { point: { x: number } }) => {
+    setPaused(true);
+    dragStartX.current = x.get();
+    dragStartPointer.current = info.point.x;
+  };
+
+  const handleDrag = (_: any, info: { point: { x: number } }) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const half = track.scrollWidth / 2;
+    let next = dragStartX.current + (info.point.x - dragStartPointer.current);
+    if (half) {
+      // Keep within the looping window
+      if (next <= -half) next += half;
+      if (next > 0) next -= half;
+    }
+    x.set(next);
+  };
+
+  const handleDragEnd = () => {
+    // Resume auto-scroll shortly after release
+    setTimeout(() => setPaused(false), 600);
+  };
+
   return (
     <section id="projects" className="section-spacing relative overflow-x-clip">
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/[0.08] rounded-full blur-[150px] pointer-events-none" />
@@ -69,14 +117,25 @@ const Projects = () => {
         </AnimatedSection>
       </div>
 
-      {/* Infinite marquee — pauses on hover */}
-      <div className="marquee group relative max-w-[100vw] overflow-x-hidden overflow-y-visible">
+      {/* Auto-looping marquee — pauses on hover, supports drag to scroll */}
+      <div
+        className="marquee group relative max-w-[100vw] overflow-x-clip overflow-y-visible"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 z-10 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 z-10 bg-gradient-to-l from-background to-transparent" />
         <motion.div
-          className="flex gap-5 py-12 px-6 w-max group-hover:[animation-play-state:paused]"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: Math.max(28, projects.length * 7), ease: 'linear', repeat: Infinity }}
+          ref={trackRef}
+          className="flex gap-5 py-12 px-6 w-max cursor-grab active:cursor-grabbing"
+          style={{ x }}
+          drag="x"
+          dragConstraints={{ left: -Infinity, right: Infinity }}
+          dragElastic={0}
+          dragMomentum={false}
+          onDragStart={handleDragStart}
+          onDrag={handleDrag}
+          onDragEnd={handleDragEnd}
         >
           {loop.map((project, i) => (
             <ProjectCard key={`${project.id}-${i}`} project={project} index={i} />
