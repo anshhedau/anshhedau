@@ -6,7 +6,7 @@ const hero = getHero();
 
 const Hero = () => {
   return (
-    <section className="min-h-screen flex items-center relative px-6 overflow-hidden pt-24 pb-16">
+    <section className="min-h-screen flex items-center relative px-5 sm:px-6 overflow-hidden pt-24 pb-20">
       <div className="absolute inset-0 mesh-gradient" />
       <div className="gradient-orb w-[600px] h-[600px] bg-primary/30 -top-20 -left-20" />
       <div className="gradient-orb w-[500px] h-[500px] bg-[hsl(280_80%_60%/0.25)] bottom-0 -right-20" style={{ animationDelay: '-7s' }} />
@@ -21,7 +21,7 @@ const Hero = () => {
             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
             className="lg:col-span-5 relative order-2 lg:order-1"
           >
-            <div className="relative w-[260px] sm:w-[320px] lg:w-[400px] aspect-square mx-auto lg:mx-0">
+            <div className="relative w-[220px] sm:w-[300px] lg:w-[400px] aspect-square mx-auto lg:mx-0">
               {/* glow ring */}
               <div className="absolute -inset-6 rounded-full opacity-70 blur-3xl" style={{ background: 'var(--gradient-primary)' }} />
               {/* rotating border */}
@@ -57,7 +57,7 @@ const Hero = () => {
                 className="absolute -bottom-3 -left-3 sm:-left-6 glass-card px-3 py-2 flex items-center gap-2 text-xs font-medium"
               >
                 <Sparkles className="w-3.5 h-3.5 text-primary-glow" />
-                Building SnapWeaz
+                Building
               </motion.div>
 
               <motion.div
@@ -90,7 +90,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 30, filter: 'blur(12px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 1, delay: 0.15, ease: [0.23, 1, 0.32, 1] }}
-              className="font-display text-[clamp(3rem,9vw,6.5rem)] leading-[0.95] tracking-tight font-semibold mb-6"
+              className="font-display text-[clamp(2.5rem,9vw,6.5rem)] leading-[0.95] tracking-tight font-semibold mb-6 break-words"
             >
               <span className="block">Hey, I'm</span>
               <span className="block">
