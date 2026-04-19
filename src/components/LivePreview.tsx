@@ -45,9 +45,6 @@ const LivePreview = ({ url, cover, title }: LivePreviewProps) => {
           {/* CTA */}
           <div className="absolute inset-x-0 bottom-0 p-5 flex items-center justify-between">
             <div className="text-white">
-              <p className="text-xs uppercase tracking-[0.2em] opacity-70 mb-1">
-                {hasUrl ? 'Live site' : 'Preview unavailable'}
-              </p>
               <p className="font-semibold text-lg leading-tight">{title}</p>
             </div>
             {hasUrl && (
