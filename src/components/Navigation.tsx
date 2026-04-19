@@ -12,7 +12,14 @@ const navLinks = ((nav.links as Array<{ name: string; href: string; visible?: bo
   { name: 'Projects', href: '#projects', visible: true },
   { name: 'Experience', href: '#experience', visible: true },
   { name: 'Contact', href: '#contact', visible: true },
-]).filter((l) => l.visible !== false);
+])
+  .filter((l) => l.visible !== false)
+  // Hash-only links (#about) won't navigate from /projects/:id back to home.
+  // Rewrite them to root-relative (/#about) so they always go to the homepage section.
+  .map((l) => ({
+    ...l,
+    href: l.href.startsWith('#') ? `/${l.href}` : l.href,
+  }));
 
 const logoText = nav.logo_text || 'Ansh';
 
@@ -36,7 +43,7 @@ const Navigation = () => {
       <div className="section-container">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <a href="#" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
+          <a href="/" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
             {logoText}<span className="text-gradient">.</span>
           </a>
 
