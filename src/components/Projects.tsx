@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getProjects } from '@/lib/content';
 import AnimatedSection from './AnimatedSection';
 
