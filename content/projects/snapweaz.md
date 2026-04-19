@@ -3,7 +3,7 @@ id: snapweaz
 title: SnapWeaz
 description: Design and Tech Studio building digital products and experiences.
   Led design, development, and strategy for multiple client projects.
-cover_image: /uploads/logo-1-.png
+cover_image: /uploads/snapweazbig.png
 role: Founder & Lead
 category: Full Stack
 link: https://www.snapweaz.com
