@@ -89,35 +89,41 @@ const Projects = () => {
     if (!track) return;
     const half = track.scrollWidth / 2;
     if (!half) return;
-    let next = x.get() - (speed * delta) / 1000;
-    if (next <= -half) next += half;
-    if (next > 0) next -= half;
-    x.set(next);
+    x.set(wrapX(x.get() - (speed * delta) / 1000));
   });
 
   const handleDragStart = (_: any, info: { point: { x: number } }) => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
     setPaused(true);
     dragStartX.current = x.get();
     dragStartPointer.current = info.point.x;
   };
 
   const handleDrag = (_: any, info: { point: { x: number } }) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const half = track.scrollWidth / 2;
-    let next = dragStartX.current + (info.point.x - dragStartPointer.current);
-    if (half) {
-      // Keep within the looping window
-      if (next <= -half) next += half;
-      if (next > 0) next -= half;
-    }
-    x.set(next);
+    x.set(wrapX(dragStartX.current + (info.point.x - dragStartPointer.current)));
   };
 
-  const handleDragEnd = () => {
-    // Resume auto-scroll shortly after release
-    setTimeout(() => setPaused(false), 600);
-  };
+  const handleDragEnd = () => pauseAndScheduleResume();
+
+  // Wheel / trackpad horizontal scroll support — captures both horizontal and
+  // vertical wheel deltas while the cursor is inside the marquee.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      // Only intercept when the user is clearly scrolling horizontally OR using a trackpad swipe.
+      // For a regular mouse wheel (vertical only), let the page scroll normally.
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      if (!isHorizontal) return;
+      e.preventDefault();
+      pauseAndScheduleResume();
+      x.set(wrapX(x.get() - delta));
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [x]);
 
   return (
     <section id="projects" className="section-spacing relative overflow-x-clip">
@@ -134,8 +140,9 @@ const Projects = () => {
         </AnimatedSection>
       </div>
 
-      {/* Auto-looping marquee — pauses on hover, supports drag to scroll */}
+      {/* Auto-looping marquee — pauses on hover, supports drag + trackpad swipe */}
       <div
+        ref={containerRef}
         className="marquee group relative max-w-[100vw] overflow-x-clip overflow-y-visible"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
