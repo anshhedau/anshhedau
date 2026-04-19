@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion, useAnimationFrame, useMotionValue } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getProjects } from '@/lib/content';
 import AnimatedSection from './AnimatedSection';
 
@@ -59,11 +59,28 @@ const Projects = () => {
   const loop = [...projects, ...projects];
 
   const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [paused, setPaused] = useState(false);
   const speed = 40; // px per second
   const dragStartX = useRef(0);
   const dragStartPointer = useRef(0);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const wrapX = (next: number) => {
+    const track = trackRef.current;
+    const half = track ? track.scrollWidth / 2 : 0;
+    if (!half) return next;
+    if (next <= -half) next += half;
+    if (next > 0) next -= half;
+    return next;
+  };
+
+  const pauseAndScheduleResume = (ms = 1200) => {
+    setPaused(true);
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setPaused(false), ms);
+  };
 
   // Continuously animates x leftward; wraps when half the track has passed
   useAnimationFrame((_, delta) => {
@@ -72,35 +89,41 @@ const Projects = () => {
     if (!track) return;
     const half = track.scrollWidth / 2;
     if (!half) return;
-    let next = x.get() - (speed * delta) / 1000;
-    if (next <= -half) next += half;
-    if (next > 0) next -= half;
-    x.set(next);
+    x.set(wrapX(x.get() - (speed * delta) / 1000));
   });
 
   const handleDragStart = (_: any, info: { point: { x: number } }) => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
     setPaused(true);
     dragStartX.current = x.get();
     dragStartPointer.current = info.point.x;
   };
 
   const handleDrag = (_: any, info: { point: { x: number } }) => {
-    const track = trackRef.current;
-    if (!track) return;
-    const half = track.scrollWidth / 2;
-    let next = dragStartX.current + (info.point.x - dragStartPointer.current);
-    if (half) {
-      // Keep within the looping window
-      if (next <= -half) next += half;
-      if (next > 0) next -= half;
-    }
-    x.set(next);
+    x.set(wrapX(dragStartX.current + (info.point.x - dragStartPointer.current)));
   };
 
-  const handleDragEnd = () => {
-    // Resume auto-scroll shortly after release
-    setTimeout(() => setPaused(false), 600);
-  };
+  const handleDragEnd = () => pauseAndScheduleResume();
+
+  // Wheel / trackpad horizontal scroll support — captures both horizontal and
+  // vertical wheel deltas while the cursor is inside the marquee.
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      if (!delta) return;
+      // Only intercept when the user is clearly scrolling horizontally OR using a trackpad swipe.
+      // For a regular mouse wheel (vertical only), let the page scroll normally.
+      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+      if (!isHorizontal) return;
+      e.preventDefault();
+      pauseAndScheduleResume();
+      x.set(wrapX(x.get() - delta));
+    };
+    el.addEventListener('wheel', onWheel, { passive: false });
+    return () => el.removeEventListener('wheel', onWheel);
+  }, [x]);
 
   return (
     <section id="projects" className="section-spacing relative overflow-x-clip">
@@ -117,8 +140,9 @@ const Projects = () => {
         </AnimatedSection>
       </div>
 
-      {/* Auto-looping marquee — pauses on hover, supports drag to scroll */}
+      {/* Auto-looping marquee — pauses on hover, supports drag + trackpad swipe */}
       <div
+        ref={containerRef}
         className="marquee group relative max-w-[100vw] overflow-x-clip overflow-y-visible"
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
