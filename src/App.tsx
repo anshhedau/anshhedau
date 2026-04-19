@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ScrollToTop } from "./components/ScrollToTop";
 import MagneticCursor from "./components/MagneticCursor";
+import ImagePreloader from "./components/ImagePreloader";
 import Index from "./pages/Index";
 import ProjectDetail from "./pages/ProjectDetail";
 import FileOpener from "./pages/FileOpener";
