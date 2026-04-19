@@ -70,11 +70,11 @@ const Projects = () => {
       </div>
 
       {/* Infinite marquee — pauses on hover */}
-      <div className="marquee group relative max-w-[100vw] overflow-hidden">
+      <div className="marquee group relative max-w-[100vw] overflow-x-hidden overflow-y-visible">
         <div className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-24 z-10 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 z-10 bg-gradient-to-l from-background to-transparent" />
         <motion.div
-          className="flex gap-5 py-4 px-6 w-max group-hover:[animation-play-state:paused]"
+          className="flex gap-5 py-12 px-6 w-max group-hover:[animation-play-state:paused]"
           animate={{ x: ['0%', '-50%'] }}
           transition={{ duration: Math.max(28, projects.length * 7), ease: 'linear', repeat: Infinity }}
         >
