@@ -59,11 +59,28 @@ const Projects = () => {
   const loop = [...projects, ...projects];
 
   const trackRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [paused, setPaused] = useState(false);
   const speed = 40; // px per second
   const dragStartX = useRef(0);
   const dragStartPointer = useRef(0);
+  const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const wrapX = (next: number) => {
+    const track = trackRef.current;
+    const half = track ? track.scrollWidth / 2 : 0;
+    if (!half) return next;
+    if (next <= -half) next += half;
+    if (next > 0) next -= half;
+    return next;
+  };
+
+  const pauseAndScheduleResume = (ms = 1200) => {
+    setPaused(true);
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => setPaused(false), ms);
+  };
 
   // Continuously animates x leftward; wraps when half the track has passed
   useAnimationFrame((_, delta) => {
