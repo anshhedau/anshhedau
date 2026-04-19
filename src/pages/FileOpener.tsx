@@ -148,7 +148,7 @@ const FileOpener = () => {
 
       {/* Footer note */}
       <footer className="py-4 text-center text-xs" style={{ color: 'hsl(var(--muted-foreground))' }}>
-        Ansh Hedau's file opener — designed mindfully for vast file support.
+        Ansh Hedau's file opener, designed mindfully for vast file support.
       </footer>
     </div>
   );

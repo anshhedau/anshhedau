@@ -57,7 +57,7 @@ const Hero = () => {
                 className="absolute -bottom-3 -left-3 sm:-left-6 glass-card px-3 py-2 flex items-center gap-2 text-xs font-medium"
               >
                 <Sparkles className="w-3.5 h-3.5 text-primary-glow" />
-                Building SnapWeaz
+                Building
               </motion.div>
 
               <motion.div

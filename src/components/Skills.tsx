@@ -21,7 +21,7 @@ const Skills = () => {
                 What I work <span className="display-serif text-gradient">with</span>
               </h2>
             </div>
-            <p className="text-sm text-muted-foreground max-w-xs">A toolkit refined across design systems, full-stack engineering and cloud infrastructure.</p>
+            
           </div>
         </AnimatedSection>
 

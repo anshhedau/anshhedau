@@ -19,8 +19,4 @@ links:
     value: anshhedau1
     href: https://github.com/anshhedau1
     icon: Github
-  - name: AWS Skills
-    value: AWS Profile
-    href: https://skillsprofile.skillbuilder.aws/user/anshhedau
-    icon: ExternalLink
 ---
