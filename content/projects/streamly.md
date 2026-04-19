@@ -5,7 +5,7 @@ description: >
   A career exploration platform designed to help students discover different
   academic streams, career paths, and opportunities with clarity through
   structured content and guided navigation.
-cover_image: /uploads/generate_new_thumbnail_202604191445.jpeg
+cover_image: /uploads/reimagine_minimal_crazy_202604191503.jpeg
 role: Product Designer, Developer
 category: Full Stack
 link: https://stream-ly.netlify.app/
