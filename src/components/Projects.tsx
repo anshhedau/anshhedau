@@ -55,7 +55,7 @@ const Projects = () => {
   const loop = [...projects, ...projects];
 
   return (
-    <section id="projects" className="section-spacing relative overflow-hidden">
+    <section id="projects" className="section-spacing relative overflow-x-clip">
       <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/[0.08] rounded-full blur-[150px] pointer-events-none" />
 
       <div className="section-container relative">
