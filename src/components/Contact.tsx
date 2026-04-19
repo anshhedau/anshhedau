@@ -28,15 +28,15 @@ const Contact = () => {
 
           <AnimatedSection delay={0.15}>
             <a href={`mailto:${contact.email || 'anshhedau@outlook.com'}`}
-              className="group inline-flex items-center gap-4 glass-card px-8 py-6 mb-14 hover:scale-[1.02] transition-transform">
-              <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ background: 'var(--gradient-primary)' }}>
-                <Mail className="w-6 h-6 text-primary-foreground" />
+              className="group inline-flex items-center gap-3 sm:gap-4 glass-card px-4 sm:px-8 py-4 sm:py-6 mb-14 hover:scale-[1.02] transition-transform max-w-full">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shrink-0" style={{ background: 'var(--gradient-primary)' }}>
+                <Mail className="w-5 h-5 sm:w-6 sm:h-6 text-primary-foreground" />
               </div>
-              <div className="text-left relative z-10">
-                <p className="text-xs uppercase tracking-[0.24em] text-primary-glow mb-1">Email</p>
-                <p className="font-display text-xl md:text-2xl font-semibold">{contact.email || 'anshhedau@outlook.com'}</p>
+              <div className="text-left relative z-10 min-w-0 flex-1">
+                <p className="text-[10px] sm:text-xs uppercase tracking-[0.24em] text-primary-glow mb-1">Email</p>
+                <p className="font-display text-sm sm:text-xl md:text-2xl font-semibold truncate">{contact.email || 'anshhedau@outlook.com'}</p>
               </div>
-              <ArrowUpRight className="w-6 h-6 text-muted-foreground group-hover:text-primary-glow group-hover:rotate-45 transition-all relative z-10" />
+              <ArrowUpRight className="w-5 h-5 sm:w-6 sm:h-6 text-muted-foreground group-hover:text-primary-glow group-hover:rotate-45 transition-all relative z-10 shrink-0" />
             </a>
           </AnimatedSection>
 
