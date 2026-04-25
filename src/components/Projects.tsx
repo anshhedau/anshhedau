@@ -85,13 +85,32 @@ const Projects = () => {
 
   // Continuously animates x leftward; wraps when half the track has passed
   useAnimationFrame((_, delta) => {
-    if (paused) return;
+    if (paused || isDragging.current) return;
     const track = trackRef.current;
     if (!track) return;
     const half = track.scrollWidth / 2;
     if (!half) return;
-    x.set(wrapX(x.get() - (speed * delta) / 1000));
+    // Clamp delta to avoid huge jumps after tab-resume
+    const dt = Math.min(delta, 50);
+    x.set(wrapX(x.get() - (speed * dt) / 1000));
   });
+
+  const handleDragStart = (_: any, info: { point: { x: number } }) => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    isDragging.current = true;
+    setPaused(true);
+    dragStartX.current = x.get();
+    dragStartPointer.current = info.point.x;
+  };
+
+  const handleDrag = (_: any, info: { point: { x: number } }) => {
+    x.set(wrapX(dragStartX.current + (info.point.x - dragStartPointer.current)));
+  };
+
+  const handleDragEnd = () => {
+    isDragging.current = false;
+    pauseAndScheduleResume();
+  };
 
   const handleDragStart = (_: any, info: { point: { x: number } }) => {
     if (resumeTimer.current) clearTimeout(resumeTimer.current);
