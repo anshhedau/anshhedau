@@ -62,7 +62,8 @@ const Projects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [paused, setPaused] = useState(false);
-  const speed = 40; // px per second
+  const isDragging = useRef(false);
+  const speed = 70; // px per second — slightly faster than before
   const dragStartX = useRef(0);
   const dragStartPointer = useRef(0);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
