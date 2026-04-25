@@ -62,7 +62,8 @@ const Projects = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const [paused, setPaused] = useState(false);
-  const speed = 40; // px per second
+  const isDragging = useRef(false);
+  const speed = 70; // px per second — slightly faster than before
   const dragStartX = useRef(0);
   const dragStartPointer = useRef(0);
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -84,16 +85,19 @@ const Projects = () => {
 
   // Continuously animates x leftward; wraps when half the track has passed
   useAnimationFrame((_, delta) => {
-    if (paused) return;
+    if (paused || isDragging.current) return;
     const track = trackRef.current;
     if (!track) return;
     const half = track.scrollWidth / 2;
     if (!half) return;
-    x.set(wrapX(x.get() - (speed * delta) / 1000));
+    // Clamp delta to avoid huge jumps after tab-resume
+    const dt = Math.min(delta, 50);
+    x.set(wrapX(x.get() - (speed * dt) / 1000));
   });
 
   const handleDragStart = (_: any, info: { point: { x: number } }) => {
     if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    isDragging.current = true;
     setPaused(true);
     dragStartX.current = x.get();
     dragStartPointer.current = info.point.x;
@@ -103,7 +107,11 @@ const Projects = () => {
     x.set(wrapX(dragStartX.current + (info.point.x - dragStartPointer.current)));
   };
 
-  const handleDragEnd = () => pauseAndScheduleResume();
+  const handleDragEnd = () => {
+    isDragging.current = false;
+    pauseAndScheduleResume();
+  };
+
 
   // Wheel / trackpad horizontal scroll support — captures both horizontal and
   // vertical wheel deltas while the cursor is inside the marquee.
@@ -151,12 +159,13 @@ const Projects = () => {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 z-10 bg-gradient-to-l from-background to-transparent" />
         <motion.div
           ref={trackRef}
-          className="flex gap-5 py-12 px-6 w-max cursor-grab active:cursor-grabbing"
-          style={{ x }}
+          className="flex gap-5 py-12 px-6 w-max cursor-grab active:cursor-grabbing will-change-transform"
+          style={{ x, touchAction: 'pan-y' }}
           drag="x"
           dragConstraints={{ left: -Infinity, right: Infinity }}
           dragElastic={0}
           dragMomentum={false}
+          dragTransition={{ power: 0, timeConstant: 0 }}
           onDragStart={handleDragStart}
           onDrag={handleDrag}
           onDragEnd={handleDragEnd}
