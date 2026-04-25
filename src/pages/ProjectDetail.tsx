@@ -14,7 +14,7 @@ const ProjectDetail = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-background noise-overlay">
+      <div className="min-h-screen bg-background noise-overlay overflow-x-hidden">
         <Navigation />
         <main className="pt-32 pb-20">
           <div className="section-container text-center">
