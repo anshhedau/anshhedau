@@ -159,12 +159,13 @@ const Projects = () => {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-24 z-10 bg-gradient-to-l from-background to-transparent" />
         <motion.div
           ref={trackRef}
-          className="flex gap-5 py-12 px-6 w-max cursor-grab active:cursor-grabbing"
-          style={{ x }}
+          className="flex gap-5 py-12 px-6 w-max cursor-grab active:cursor-grabbing will-change-transform"
+          style={{ x, touchAction: 'pan-y' }}
           drag="x"
           dragConstraints={{ left: -Infinity, right: Infinity }}
           dragElastic={0}
           dragMomentum={false}
+          dragTransition={{ power: 0, timeConstant: 0 }}
           onDragStart={handleDragStart}
           onDrag={handleDrag}
           onDragEnd={handleDragEnd}
