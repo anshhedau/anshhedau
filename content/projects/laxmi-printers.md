@@ -11,7 +11,7 @@ link: https://www.laxmiprinters.com/
 github: https://www.laxmiprinters.com/
 duration: 15 Days
 client: Laxmi Printers
-order: 0
+order: 2
 featured: false
 hasDetailPage: true
 tech:
