@@ -42,7 +42,5 @@ outcome: Successfully delivered 15+ projects for clients across various
   industries, establishing SnapWeaz as a trusted partner for digital product
   development.
 gallery: []
-files:
-  - file: /uploads/main.tf
-    cover: /uploads/generate_new_thumbnail_202604191456.jpeg
+files: []
 ---
