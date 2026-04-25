@@ -36,7 +36,7 @@ const ProjectDetail = () => {
   const files = (project.files as Array<{ cover: string; file: string; title?: string; caption?: string }>) || [];
 
   return (
-    <div className="min-h-screen bg-background noise-overlay">
+    <div className="min-h-screen bg-background noise-overlay overflow-x-hidden">
       <Navigation />
       <main className="pt-32 pb-20 relative">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/[0.04] rounded-full blur-[150px] pointer-events-none" />
