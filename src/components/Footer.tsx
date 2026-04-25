@@ -4,6 +4,11 @@ import { ArrowUp } from 'lucide-react';
 const footer = getFooter();
 
 const Footer = () => {
+  const handleBackToTop = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="py-12 border-t border-border relative">
       <div className="section-container">
@@ -19,9 +24,13 @@ const Footer = () => {
             {footer.copyright || '© Ansh Hedau · Crafted with care.'}
           </p>
 
-          <a href="#" className="inline-flex items-center gap-2 text-sm hover:text-primary-glow transition-colors text-muted-foreground sm:justify-self-end">
+          <button
+            type="button"
+            onClick={handleBackToTop}
+            className="inline-flex items-center gap-2 text-sm hover:text-primary-glow transition-colors text-muted-foreground sm:justify-self-end"
+          >
             Back to top <ArrowUp className="w-4 h-4" />
-          </a>
+          </button>
         </div>
       </div>
     </footer>
