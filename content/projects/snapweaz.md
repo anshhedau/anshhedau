@@ -4,7 +4,7 @@ title: SnapWeaz
 description: Design and Tech Studio building digital products and experiences.
   Led design, development, and strategy for multiple client projects.
 cover_image: /uploads/snapweazbig.png
-role: Founder & Lead
+role: Lead
 category: Full Stack
 link: https://www.snapweaz.com
 github: https://github.com/anshhedau1
@@ -23,9 +23,9 @@ full_description:
     between aesthetics and functionality. We specialize in creating digital
     products that not only look stunning but also deliver exceptional user
     experiences.
-  - As the Founder and Lead, I oversee all aspects of the business from client
-    acquisition to project delivery. I work with a talented team of designers
-    and developers to bring our clients' visions to life.
+  - I oversee all aspects of the business from client acquisition to project
+    delivery. I work with a talented team of designers and developers to bring
+    our clients' visions to life.
   - Our portfolio includes brand identities, web applications, mobile apps, and
     comprehensive design systems for startups and established businesses alike.
 features:
