@@ -112,18 +112,6 @@ const Projects = () => {
     pauseAndScheduleResume();
   };
 
-  const handleDragStart = (_: any, info: { point: { x: number } }) => {
-    if (resumeTimer.current) clearTimeout(resumeTimer.current);
-    setPaused(true);
-    dragStartX.current = x.get();
-    dragStartPointer.current = info.point.x;
-  };
-
-  const handleDrag = (_: any, info: { point: { x: number } }) => {
-    x.set(wrapX(dragStartX.current + (info.point.x - dragStartPointer.current)));
-  };
-
-  const handleDragEnd = () => pauseAndScheduleResume();
 
   // Wheel / trackpad horizontal scroll support — captures both horizontal and
   // vertical wheel deltas while the cursor is inside the marquee.
