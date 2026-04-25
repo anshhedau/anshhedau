@@ -81,7 +81,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
             >
-              <span className="section-label mb-6 inline-block">
+              <span className="section-label mb-6 inline-block text-[10px] sm:text-[11px] tracking-[0.25em] sm:tracking-[0.3em] whitespace-nowrap max-w-full overflow-hidden text-ellipsis">
                 {hero.tagline || 'CSE · Cloud · Builder'}
               </span>
             </motion.div>
@@ -131,7 +131,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.8 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 text-muted-foreground animate-bounce"
+        className="absolute bottom-6 left-0 right-0 mx-auto w-6 h-6 flex items-center justify-center text-muted-foreground animate-bounce"
         aria-label="Scroll to about"
       >
         <ChevronDown size={24} />
