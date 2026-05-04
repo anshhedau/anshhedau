@@ -15,8 +15,6 @@ const navLinks = ((nav.links as Array<{ name: string; href: string; visible?: bo
   { name: 'Contact', href: '#contact', visible: true },
 ])
   .filter((l) => l.visible !== false)
-  // Hash-only links (#about) won't navigate from /projects/:id back to home.
-  // Rewrite them to root-relative (/#about) so they always go to the homepage section.
   .map((l) => ({
     ...l,
     href: l.href.startsWith('#') ? `/${l.href}` : l.href,
@@ -35,7 +33,6 @@ const Navigation = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
@@ -45,16 +42,18 @@ const Navigation = () => {
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 glass-nav"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? 'glass-nav shadow-[0_0_30px_hsl(243_75%_59%/0.08)]'
+          : 'bg-transparent border-b border-transparent'
+      }`}
     >
       <div className="section-container">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link to="/" className="text-xl font-bold tracking-tight hover:opacity-80 transition-opacity">
             {logoText}<span className="text-gradient">.</span>
           </Link>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map((link) => (
               <a
@@ -77,7 +76,6 @@ const Navigation = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden p-2 rounded-xl hover:bg-[hsl(var(--glass-bg))] transition-colors"
@@ -88,7 +86,6 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
