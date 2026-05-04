@@ -7,10 +7,16 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ScrollToTop } from "./components/ScrollToTop";
 import MagneticCursor from "./components/MagneticCursor";
 import ImagePreloader from "./components/ImagePreloader";
+import SmoothScroll from "./components/SmoothScroll";
+import { lazy, Suspense } from "react";
 import Index from "./pages/Index";
 import ProjectDetail from "./pages/ProjectDetail";
 import FileOpener from "./pages/FileOpener";
 import NotFound from "./pages/NotFound";
+
+// Lazy load heavy 3D — only on desktop
+const ParticleField = lazy(() => import("./components/ParticleField"));
+const isMobile = typeof window !== "undefined" && (window.innerWidth < 768 || 'ontouchstart' in window);
 
 const queryClient = new QueryClient();
 
@@ -43,8 +49,14 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <ScrollToTop />
+        <SmoothScroll />
         <MagneticCursor />
         <ImagePreloader />
+        {!isMobile && (
+          <Suspense fallback={null}>
+            <ParticleField />
+          </Suspense>
+        )}
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>

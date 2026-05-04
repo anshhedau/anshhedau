@@ -1,24 +1,51 @@
 import { ChevronDown, Sparkles } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 import { getHero } from '@/lib/content';
 
 const hero = getHero();
 
 const Hero = () => {
+  const containerRef = useRef<HTMLElement>(null);
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+  const smoothX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+
+  // Parallax transforms for different layers
+  const portraitX = useTransform(smoothX, [0, 1], [-15, 15]);
+  const portraitY = useTransform(smoothY, [0, 1], [-10, 10]);
+  const textX = useTransform(smoothX, [0, 1], [8, -8]);
+  const textY = useTransform(smoothY, [0, 1], [5, -5]);
+  const orbX = useTransform(smoothX, [0, 1], [-30, 30]);
+  const orbY = useTransform(smoothY, [0, 1], [-20, 20]);
+
+  useEffect(() => {
+    const handleMouse = (e: MouseEvent) => {
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      mouseX.set((e.clientX - rect.left) / rect.width);
+      mouseY.set((e.clientY - rect.top) / rect.height);
+    };
+    window.addEventListener('mousemove', handleMouse);
+    return () => window.removeEventListener('mousemove', handleMouse);
+  }, [mouseX, mouseY]);
+
   return (
-    <section className="min-h-screen flex items-center relative px-5 sm:px-6 overflow-hidden pt-24 pb-20">
+    <section ref={containerRef} className="min-h-screen flex items-center relative px-5 sm:px-6 overflow-hidden pt-24 pb-20">
       <div className="absolute inset-0 mesh-gradient" />
-      <div className="gradient-orb w-[600px] h-[600px] bg-primary/30 -top-20 -left-20" />
-      <div className="gradient-orb w-[500px] h-[500px] bg-[hsl(280_80%_60%/0.25)] bottom-0 -right-20" style={{ animationDelay: '-7s' }} />
-      <div className="gradient-orb w-[300px] h-[300px] bg-[hsl(220_90%_50%/0.2)] top-[40%] left-[40%]" style={{ animationDelay: '-14s' }} />
+      <motion.div className="gradient-orb w-[600px] h-[600px] bg-primary/30 -top-20 -left-20" style={{ x: orbX, y: orbY }} />
+      <motion.div className="gradient-orb w-[500px] h-[500px] bg-[hsl(280_80%_60%/0.25)] bottom-0 -right-20" style={{ x: useTransform(orbX, v => -v * 0.7), y: useTransform(orbY, v => -v * 0.7), animationDelay: '-7s' }} />
+      <motion.div className="gradient-orb w-[300px] h-[300px] bg-[hsl(220_90%_50%/0.2)] top-[40%] left-[40%]" style={{ x: useTransform(orbX, v => v * 0.5), animationDelay: '-14s' }} />
 
       <div className="section-container relative z-10 w-full">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-6 items-center">
-          {/* PORTRAIT — left, asymmetric */}
+          {/* PORTRAIT — left, asymmetric with parallax */}
           <motion.div
             initial={{ opacity: 0, scale: 0.92, filter: 'blur(20px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ duration: 1.2, ease: [0.23, 1, 0.32, 1] }}
+            style={{ x: portraitX, y: portraitY }}
             className="lg:col-span-5 relative order-2 lg:order-1"
           >
             <div className="relative w-[220px] sm:w-[300px] lg:w-[400px] aspect-square mx-auto lg:mx-0">
@@ -74,8 +101,8 @@ const Hero = () => {
             </div>
           </motion.div>
 
-          {/* TEXT — right */}
-          <div className="lg:col-span-7 order-1 lg:order-2">
+          {/* TEXT — right with counter-parallax */}
+          <motion.div style={{ x: textX, y: textY }} className="lg:col-span-7 order-1 lg:order-2">
             <motion.div
               initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
               animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
@@ -122,7 +149,7 @@ const Hero = () => {
                 {hero.cta_secondary_text || 'Get in Touch'}
               </a>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </div>
 
