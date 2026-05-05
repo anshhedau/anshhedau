@@ -1,7 +1,6 @@
 ---
 site_title: Ansh Hedau
-meta_description: Portfolio of Ansh Hedau — a Computer Science student
-  specializing in Cloud Computing, UI/UX Design, and full-stack development.
+meta_description: "Hey, I'm Ansh Hedau. I design and build products that merge aesthetics with innovation."
 keywords: Ansh Hedau, portfolio, developer, designer, cloud computing, React, UI/UX
 author: Ansh Hedau
 ---
