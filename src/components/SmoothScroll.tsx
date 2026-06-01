@@ -3,6 +3,13 @@ import Lenis from 'lenis';
 
 const SmoothScroll = () => {
   useEffect(() => {
+    // Skip Lenis on touch devices — iOS Safari already has native momentum
+    // scrolling and Lenis can break the page (black screen / frozen scroll).
+    const isTouch =
+      typeof window !== 'undefined' &&
+      ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    if (isTouch) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
