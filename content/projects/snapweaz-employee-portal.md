@@ -7,7 +7,7 @@ cover_image: /uploads/generate_new_thumbnail_202604191456.jpeg
 role: Developer
 category: Web App
 link: https://employee-database-ansh-hedau-snapweaz.netlify.app/
-github: https://github.com/anshhedau1
+github: https://github.com/anshhedau
 order: 4
 featured: false
 hasDetailPage: true

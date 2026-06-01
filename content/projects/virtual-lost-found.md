@@ -7,7 +7,7 @@ cover_image: /uploads/generate_new_thumbnail_202604191447.jpeg
 role: Developer & Designer
 category: Web App
 link: https://lost-and-found-ansh-hedau.netlify.app/
-github: https://github.com/anshhedau1
+github: https://github.com/anshhedau
 duration: ""
 client: ""
 order: 3
