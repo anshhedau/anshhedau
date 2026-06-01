@@ -7,7 +7,7 @@ cover_image: /uploads/generate_new_thumbnail_202604191409.jpeg
 role: Developer
 category: IoT
 link: https://youtu.be/0RhrimfC_N8?si=YPUbS63CRin9xwpK
-github: https://github.com/anshhedau1
+github: https://github.com/anshhedau
 duration: ""
 client: ""
 order: 2

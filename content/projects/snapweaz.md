@@ -7,7 +7,7 @@ cover_image: /uploads/snapweazbig.png
 role: Lead
 category: Full Stack
 link: https://www.snapweaz.com
-github: https://github.com/anshhedau1
+github: https://github.com/anshhedau
 duration: ""
 client: ""
 order: 1

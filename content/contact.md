@@ -16,7 +16,7 @@ links:
     href: https://linkedin.com/in/anshhedau
     icon: Linkedin
   - name: GitHub
-    value: anshhedau1
-    href: https://github.com/anshhedau1
+    value: anshhedau
+    href: https://github.com/anshhedau
     icon: Github
 ---

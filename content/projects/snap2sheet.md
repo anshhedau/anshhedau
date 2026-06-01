@@ -7,7 +7,7 @@ cover_image: /uploads/generate_new_thumbnail_202604191452.jpeg
 role: Developer
 category: AI/ML
 link: https://stalwart-seahorse-554dae.netlify.app/
-github: https://github.com/anshhedau1
+github: https://github.com/anshhedau
 duration: ""
 client: ""
 order: 4
