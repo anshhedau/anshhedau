@@ -4,11 +4,11 @@ title: SnapSecure
 description: Enterprise Cloud Posture Platform delivering continuous security
   monitoring, compliance verification, and AWS cost optimization through a
   single glassmorphic security console.
-cover_image: /uploads/snapsecure-cover.png
-role: Founder, Product Designer & Developer
-category: Security / SaaS
+cover_image: /uploads/generate_new_thumbnail_minimal_202606261110.jpeg
+role: Product Designer & Developer
+category: AI/ML
 link: https://secure.snapweaz.com/
-github: https://github.com/anshhedau
+github: https://github.com/anshhedau/snapsecure
 duration: 3 Months
 client: SnapWeaz
 order: 5
@@ -25,11 +25,11 @@ full_description:
     continuous security monitoring, compliance verification, and AWS cost
     optimization under a single glassmorphic security console.
   - The platform assumes a live audit role via AWS STS to run automated scan
-    modules across IAM, security groups, open ports, and SSL certificates without
-    requiring manual infrastructure access.
+    modules across IAM, security groups, open ports, and SSL certificates
+    without requiring manual infrastructure access.
   - Security teams get a real-time stance score, critical risk alerts, and
-    actionable remediation guidance, helping them move from reactive firefighting
-    to proactive cloud governance.
+    actionable remediation guidance, helping them move from reactive
+    firefighting to proactive cloud governance.
 features:
   - IAM Analyzer with MFA, root account, and wildcard policy checks
   - Security Group Auditor for open SSH/RDP/database port exposures
