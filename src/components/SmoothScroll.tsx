@@ -17,6 +17,9 @@ const SmoothScroll = () => {
       infinite: false,
     });
 
+    // Expose so ScrollToTop (and others) can drive Lenis directly.
+    (window as unknown as { __lenis?: Lenis }).__lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -43,6 +46,7 @@ const SmoothScroll = () => {
     return () => {
       lenis.destroy();
       document.removeEventListener('click', handleClick);
+      delete (window as unknown as { __lenis?: Lenis }).__lenis;
     };
   }, []);
 
