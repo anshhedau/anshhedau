@@ -5,7 +5,7 @@ description: Enterprise Cloud Posture Platform delivering continuous security
   monitoring, compliance verification, and AWS cost optimization through a
   single glassmorphic security console.
 cover_image: /uploads/generate_new_thumbnail_minimal_202606261110.jpeg
-role: Product Designer & Developer
+role: Product Designer & DevOps
 category: AI/ML
 link: https://secure.snapweaz.com/
 github: https://github.com/anshhedau/snapsecure
