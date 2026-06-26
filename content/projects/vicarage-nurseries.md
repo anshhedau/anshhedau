@@ -3,12 +3,12 @@ id: vicarage-nurseries
 title: Vicarage Nurseries
 description: Award-winning soft fruit farm website celebrating 25+ years of
   heritage, community, and premium berry production in the Vale of Evesham.
-cover_image: /uploads/vicarage-nurseries-cover.png
+cover_image: /uploads/generate_new_thumbnail_minimal_202606261145.jpeg
 role: Designer & Developer
-category: Web App / Brand
+category: Web App
 link: https://vicaragenurseries.co.uk/
 github: https://github.com/anshhedau
-duration: 1 Month
+duration: 3 Month
 client: Vicarage Nurseries
 order: 6
 featured: false
@@ -20,10 +20,11 @@ tech:
   - Framer Motion
 full_description:
   - Vicarage Nurseries is an award-winning soft fruit farm rooted in the Vale of
-    Evesham, growing strawberries and berries for generations of British families.
-  - The website translates the farm's warmth, heritage, and community spirit into
-    a modern digital experience with smooth storytelling, rich imagery, and clear
-    calls to action.
+    Evesham, growing strawberries and berries for generations of British
+    families.
+  - The website translates the farm's warmth, heritage, and community spirit
+    into a modern digital experience with smooth storytelling, rich imagery, and
+    clear calls to action.
   - Visitors can explore the family story, see before-and-after growth metrics,
     browse awards and press features, and subscribe to seasonal farm updates.
 features:
