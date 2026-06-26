@@ -25,7 +25,7 @@ full_description:
     a modern digital experience with smooth storytelling, rich imagery, and clear
     calls to action.
   - Visitors can explore the family story, see before-and-after growth metrics,
-  browse awards and press features, and subscribe to seasonal farm updates.
+    browse awards and press features, and subscribe to seasonal farm updates.
 features:
   - Heritage storytelling with timeline and family history
   - Before / after farm growth statistics section
