@@ -3,11 +3,11 @@ id: weaz-ai
 title: Weaz AI
 description: Zero-barrier AI assistant platform combining document intelligence,
   persistent memory, projects, study tools, and a resume & career center.
-cover_image: /uploads/weaz-ai-cover.png
-role: Founder, Product Designer & Developer
-category: AI / Productivity
+cover_image: /uploads/generate_new_thumbnail_minimal_202606261115.jpeg
+role: Product Designer & Developer
+category: Web App
 link: https://ai.snapweaz.com/
-github: https://github.com/anshhedau
+github: https://github.com/anshhedau/weazai
 duration: 2 Months
 client: SnapWeaz
 order: 7
