@@ -1,11 +1,13 @@
-import { createRoot } from "react-dom/client";
-import App from "./App.tsx";
+import { ViteReactSSG } from "vite-react-ssg";
+import { routes } from "./routes";
 import "./index.css";
 
-// Disable browser's automatic scroll restoration so our ScrollToTop component
-// has full control (prevents flicker / wrong restore on SPA navigation).
-if (typeof window !== "undefined" && "scrollRestoration" in window.history) {
-  window.history.scrollRestoration = "manual";
-}
-
-createRoot(document.getElementById("root")!).render(<App />);
+export const createRoot = ViteReactSSG(
+  { routes },
+  ({ router, isClient }) => {
+    if (isClient && "scrollRestoration" in window.history) {
+      // ScrollToTop owns scroll behaviour; disable the browser's default.
+      window.history.scrollRestoration = "manual";
+    }
+  },
+);
