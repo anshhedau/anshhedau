@@ -2,26 +2,22 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useLocation, useOutlet } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { ScrollToTop } from "./components/ScrollToTop";
 import MagneticCursor from "./components/MagneticCursor";
 import ImagePreloader from "./components/ImagePreloader";
 import SmoothScroll from "./components/SmoothScroll";
-import { lazy, Suspense } from "react";
-import Index from "./pages/Index";
-import ProjectDetail from "./pages/ProjectDetail";
-import FileOpener from "./pages/FileOpener";
-import NotFound from "./pages/NotFound";
+import { lazy, Suspense, useEffect, useState } from "react";
 
-// Lazy load heavy 3D — only on desktop
+// Lazy-loaded, client-only heavy 3D.
 const ParticleField = lazy(() => import("./components/ParticleField"));
-const isMobile = typeof window !== "undefined" && (window.innerWidth < 768 || 'ontouchstart' in window);
 
 const queryClient = new QueryClient();
 
-const AnimatedRoutes = () => {
+const AnimatedOutlet = () => {
   const location = useLocation();
+  const outlet = useOutlet();
   return (
     <AnimatePresence mode="wait">
       <motion.div
@@ -31,14 +27,34 @@ const AnimatedRoutes = () => {
         exit={{ opacity: 0, y: -8, filter: "blur(8px)" }}
         transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
       >
-        <Routes location={location}>
-          <Route path="/" element={<Index />} />
-          <Route path="/projects/:projectId" element={<ProjectDetail />} />
-          <Route path="/file" element={<FileOpener />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        {outlet}
       </motion.div>
     </AnimatePresence>
+  );
+};
+
+const ClientOnlyEffects = () => {
+  // Only render browser-only decorations after mount so SSG output stays clean
+  // and Three.js never touches window during prerender.
+  const [mounted, setMounted] = useState(false);
+  const [showParticles, setShowParticles] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    const isMobile = window.innerWidth < 768 || "ontouchstart" in window;
+    setShowParticles(!isMobile);
+  }, []);
+  if (!mounted) return null;
+  return (
+    <>
+      <SmoothScroll />
+      <MagneticCursor />
+      <ImagePreloader />
+      {showParticles && (
+        <Suspense fallback={null}>
+          <ParticleField />
+        </Suspense>
+      )}
+    </>
   );
 };
 
@@ -47,18 +63,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <BrowserRouter>
-        <ScrollToTop />
-        <SmoothScroll />
-        <MagneticCursor />
-        <ImagePreloader />
-        {!isMobile && (
-          <Suspense fallback={null}>
-            <ParticleField />
-          </Suspense>
-        )}
-        <AnimatedRoutes />
-      </BrowserRouter>
+      <ScrollToTop />
+      <ClientOnlyEffects />
+      <AnimatedOutlet />
     </TooltipProvider>
   </QueryClientProvider>
 );
