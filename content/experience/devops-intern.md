@@ -7,7 +7,7 @@ period: May 2026 - July 2026
 location: Pune, India
 type: Internship
 description: >-
-  responsible for building and deploying a fully functional client website,
+  Responsible for building and deploying a fully functional client website,
   implementing
 
   end-to-end DevOps practices including version control, automated pipelines, and production deployment.
