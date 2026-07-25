@@ -3,7 +3,7 @@ title: Tech and Design Intern
 company: SnapWeaz
 companyLink: https://www.snapweaz.com/
 company_logo: /uploads/faviconnew.png
-period: May 2025 - July 2025
+period: May 2025 - November 2025
 location: Pune, India
 type: Internship
 description: Contributed to real-world projects, collaborating across teams to
