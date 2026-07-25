@@ -6,7 +6,8 @@ company_logo: /uploads/vn-vn-logo-cut-rev2-dragged-modified.png
 period: May 2026 - November 2026
 location: Remote
 type: Internship
-description: Developed responsive web application and managed deployment
-  workflows to deliver reliable, high-performance digital solutions.
+description: Designed, developed, and successfully deployed the official
+  Vicarage Nurseries website, ensuring a responsive user experience, reliable
+  performance, and seamless production deployment.
 order: 1
 ---
