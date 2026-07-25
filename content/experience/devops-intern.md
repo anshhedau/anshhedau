@@ -11,5 +11,5 @@ description: >-
   implementing
 
   end-to-end DevOps practices including version control, automated pipelines, and production deployment.
-order: 1
+order: 2
 ---
