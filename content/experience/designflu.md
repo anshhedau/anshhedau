@@ -8,5 +8,5 @@ type: Internship
 description: Designed, developed, and maintained full-stack applications using
   modern frontend and backend technologies, ensuring reliable, scalable, and
   high-performance solutions.
-order: 2
+order: 3
 ---
