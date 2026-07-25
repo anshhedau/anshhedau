@@ -8,5 +8,5 @@ location: Pune, India
 type: Internship
 description: Contributed to real-world projects, collaborating across teams to
   deliver innovative tech and design solutions.
-order: 3
+order: 4
 ---
