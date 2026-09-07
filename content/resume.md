@@ -1,4 +1,4 @@
 ---
-file: /uploads/resume-main.pdf
+file: /uploads/resume.pdf
 show_in_nav: true
 ---
